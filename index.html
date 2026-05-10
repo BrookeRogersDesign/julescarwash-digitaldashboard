@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jules Carwash | Client Portal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.5.0/dist/chart.umd.js"></script>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box;}
+  :root{
+    --accent:#2F6EBB;--accent-dim:rgba(47,110,187,0.12);--accent-glow:rgba(47,110,187,0.25);
+    --dark-blue:#1A2A40;--mid-blue:#2A4060;--light-blue:#3A6BAF;
+    --red:#ED1C24;--red-dim:rgba(237,28,36,0.12);
+    --bg:#0F1318;--card:rgba(26,42,64,0.55);--card-solid:#1A2A40;
+    --card-border:rgba(47,110,187,0.12);--card-hover:rgba(42,64,96,0.50);
+    --text:#FFFFFF;--text-dim:rgba(255,255,255,0.45);--text-mid:rgba(255,255,255,0.7);
+    --green:#4ADE80;--orange:#FFD180;--blue:#82B1FF;
+    --tiktok:#FF004F;--instagram:#E1306C;--facebook:#1877F2;
+    --radius:20px;--radius-sm:12px;
+    --font:'Avenir','Avenir Next','Inter',-apple-system,BlinkMacSystemFont,sans-serif;
+  }
+  body{background:var(--bg);color:var(--text);font-family:var(--font);line-height:1.6;min-height:100vh;overflow-x:hidden;position:relative;}
+  body::before{content:'';position:fixed;top:0;left:0;right:0;bottom:0;z-index:0;opacity:0.03;pointer-events:none;
+    background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='600' viewBox='0 0 600 600'%3E%3Cpath d='M50 300 C50 150 150 50 300 50 C450 50 500 200 450 300 C400 400 500 500 350 550 C200 600 50 450 50 300Z' fill='none' stroke='%232F6EBB' stroke-width='40'/%3E%3Cpath d='M150 100 C250 0 400 50 450 150 C500 250 400 350 300 350 C200 350 100 400 100 500' fill='none' stroke='%232F6EBB' stroke-width='35'/%3E%3Cpath d='M0 200 C100 100 200 200 300 150 C400 100 500 200 600 150' fill='none' stroke='%232F6EBB' stroke-width='30'/%3E%3Cpath d='M0 450 C100 400 200 500 300 450 C400 400 500 500 600 450' fill='none' stroke='%232F6EBB' stroke-width='30'/%3E%3C/svg%3E");
+    background-size:600px 600px;}
+
+  /* ===== VIEW SWITCHING ===== */
+  .view{display:none;position:relative;z-index:1;}
+  .view.active{display:flex;flex-direction:column;min-height:100vh;}
+
+  /* ===== PORTAL ===== */
+  .portal-container{max-width:900px;margin:0 auto;padding:60px 40px;flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;}
+  .logo-section{text-align:center;margin-bottom:50px;}
+  .logo-section img{width:120px;height:120px;object-fit:contain;border-radius:50%;margin-bottom:24px;border:3px solid rgba(47,110,187,0.2);padding:4px;background:rgba(47,110,187,0.05);}
+  .logo-section h1{font-size:28px;font-weight:700;letter-spacing:4px;text-transform:uppercase;margin-bottom:8px;}
+  .logo-section p{font-size:14px;color:var(--text-dim);letter-spacing:1.5px;text-transform:uppercase;}
+  .divider{width:60px;height:3px;background:linear-gradient(90deg,var(--accent),var(--red));border-radius:2px;margin:0 auto 50px;}
+  .portal-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;width:100%;max-width:700px;}
+  .portal-card{background:var(--card);border:1px solid var(--card-border);border-radius:var(--radius);padding:36px 30px;text-decoration:none;color:var(--text);transition:all 0.3s cubic-bezier(.4,0,.2,1);position:relative;overflow:hidden;backdrop-filter:blur(10px);text-align:center;cursor:pointer;}
+  .portal-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--accent),rgba(47,110,187,0.3));opacity:0;transition:opacity 0.3s;}
+  .portal-card:hover{background:var(--card-hover);border-color:rgba(47,110,187,0.25);transform:translateY(-4px);box-shadow:0 16px 48px rgba(47,110,187,0.10);}
+  .portal-card:hover::before{opacity:1;}
+  .portal-icon{font-size:36px;margin-bottom:16px;}
+  .portal-title{font-size:16px;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:8px;}
+  .portal-desc{font-size:13px;color:var(--text-dim);line-height:1.6;}
+  .portal-card.primary{border-color:rgba(47,110,187,0.25);}
+  .portal-card.primary::before{opacity:0.6;}
+  .portal-card.coming{opacity:0.5;pointer-events:none;cursor:default;}
+  .portal-card.coming .portal-title::after{content:' (Coming Soon)';font-size:10px;color:var(--text-dim);font-weight:500;}
+
+  /* ===== DASHBOARD ===== */
+  .header{background:linear-gradient(180deg,rgba(47,110,187,0.10) 0%,transparent 100%);border-bottom:1px solid var(--card-border);padding:20px 40px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);}
+  .logo-area{display:flex;align-items:center;gap:18px;text-decoration:none;color:inherit;cursor:pointer;}
+  .logo-icon{width:44px;height:44px;display:flex;align-items:center;justify-content:center;}
+  .logo-icon img{width:44px;height:44px;object-fit:contain;border-radius:50%;}
+  .logo-divider{width:1px;height:36px;background:rgba(255,255,255,0.1);}
+  .logo-text{display:flex;flex-direction:column;}
+  .logo-text span:first-child{font-size:14px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--text);}
+  .logo-text span:last-child{font-size:11px;color:var(--text-dim);letter-spacing:1.5px;text-transform:uppercase;}
+  .header-right{display:flex;align-items:center;gap:16px;}
+  .header-date{font-size:13px;color:var(--text-dim);}
+  .header-badge{background:var(--accent-dim);color:var(--accent);font-size:11px;font-weight:600;padding:6px 16px;border-radius:50px;border:1px solid rgba(47,110,187,0.25);letter-spacing:1px;text-transform:uppercase;}
+
+  .nav-tabs{display:flex;gap:6px;padding:14px 40px;border-bottom:1px solid var(--card-border);background:rgba(15,19,24,0.9);backdrop-filter:blur(12px);position:sticky;top:85px;z-index:99;}
+  .nav-tab{padding:10px 24px;font-size:12px;font-weight:600;color:var(--text-dim);background:transparent;border:1px solid var(--card-border);border-radius:50px;cursor:pointer;transition:all 0.25s;letter-spacing:0.8px;text-transform:uppercase;font-family:var(--font);}
+  .nav-tab:hover{color:var(--text-mid);background:rgba(255,255,255,0.04);border-color:rgba(47,110,187,0.25);}
+  .nav-tab.active{color:#FFFFFF;background:var(--accent);border-color:var(--accent);font-weight:700;}
+
+  .month-tabs{display:flex;gap:6px;margin-bottom:20px;flex-wrap:wrap;}
+  .month-tab{padding:7px 18px;font-size:10px;font-weight:600;color:var(--text-dim);background:transparent;border:1px solid var(--card-border);border-radius:50px;cursor:pointer;transition:all 0.25s;letter-spacing:0.6px;text-transform:uppercase;font-family:var(--font);}
+  .month-tab:hover{color:var(--text-mid);background:rgba(255,255,255,0.04);}
+  .month-tab.active{color:#FFFFFF;background:var(--accent);border-color:var(--accent);font-weight:700;}
+
+  .main{padding:28px 40px 60px;max-width:1480px;margin:0 auto;}
+  .section-label{font-size:10px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--text-dim);margin-bottom:16px;margin-top:8px;display:flex;align-items:center;gap:14px;}
+  .section-label::after{content:'';flex:1;height:1px;background:var(--card-border);}
+
+  .metrics-row{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:32px;}
+  .metrics-row-6{grid-template-columns:repeat(6,1fr);}
+  .metric-card{background:var(--card);border:1px solid var(--card-border);border-radius:var(--radius);padding:24px;transition:all 0.3s cubic-bezier(.4,0,.2,1);position:relative;overflow:hidden;backdrop-filter:blur(10px);}
+  .metric-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--accent),rgba(47,110,187,0.3));opacity:0;transition:opacity 0.3s;}
+  .metric-card:hover{background:var(--card-hover);border-color:rgba(47,110,187,0.25);transform:translateY(-3px);box-shadow:0 12px 40px rgba(47,110,187,0.08);}
+  .metric-card:hover::before{opacity:1;}
+  .metric-icon{width:40px;height:40px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:18px;margin-bottom:16px;}
+  .metric-label{font-size:11px;color:var(--text-dim);margin-bottom:8px;font-weight:500;letter-spacing:0.8px;text-transform:uppercase;}
+  .metric-value{font-size:28px;font-weight:700;color:var(--text);letter-spacing:-1px;line-height:1.1;}
+  .metric-change{display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:600;margin-top:10px;padding:4px 10px;border-radius:50px;}
+  .metric-change.up{color:var(--green);background:rgba(74,222,128,0.1);}
+  .metric-change.down{color:var(--red);background:rgba(237,28,36,0.1);}
+  .metric-change.neutral{color:var(--text-dim);background:rgba(255,255,255,0.05);}
+
+  .platform-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:32px;}
+  .platform-card{background:var(--card);border:1px solid var(--card-border);border-radius:var(--radius);padding:26px;transition:all 0.3s cubic-bezier(.4,0,.2,1);backdrop-filter:blur(10px);position:relative;overflow:hidden;}
+  .platform-card:hover{background:var(--card-hover);transform:translateY(-3px);box-shadow:0 12px 40px rgba(0,0,0,0.2);}
+  .platform-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:22px;padding-bottom:16px;border-bottom:1px solid var(--card-border);}
+  .platform-name{display:flex;align-items:center;gap:10px;}
+  .platform-dot{width:10px;height:10px;border-radius:50%;}
+  .platform-name span{font-size:15px;font-weight:700;letter-spacing:0.5px;}
+  .platform-badge{font-size:11px;font-weight:500;padding:5px 12px;border-radius:50px;background:rgba(255,255,255,0.05);color:var(--text-dim);border:1px solid var(--card-border);}
+  .platform-stat{margin-bottom:14px;}
+  .platform-stat:last-child{margin-bottom:0;}
+  .platform-stat-label{font-size:9px;color:var(--text-dim);text-transform:uppercase;letter-spacing:1px;margin-bottom:3px;}
+  .platform-stat-value{font-size:20px;font-weight:700;letter-spacing:-0.5px;}
+  .platform-stat-sub{font-size:10px;font-weight:600;margin-top:2px;}
+
+  .insights-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-bottom:32px;}
+  .insight-card{background:var(--card);border:1px solid var(--card-border);border-radius:var(--radius);padding:26px;backdrop-filter:blur(10px);}
+  .insight-card:hover{background:var(--card-hover);}
+  .insight-label{font-size:10px;text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;font-weight:700;}
+  .insight-text{font-size:13px;color:var(--text-mid);line-height:1.7;}
+
+  .charts-grid{display:grid;grid-template-columns:2fr 1fr;gap:14px;margin-bottom:32px;}
+  .charts-grid-equal{grid-template-columns:1fr 1fr;}
+  .chart-card{background:var(--card);border:1px solid var(--card-border);border-radius:var(--radius);padding:24px;backdrop-filter:blur(10px);}
+  .chart-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;}
+  .chart-title{font-size:14px;font-weight:700;letter-spacing:0.3px;}
+  .chart-container{position:relative;height:280px;}
+
+  .audience-card{background:var(--card);border:1px solid var(--card-border);border-radius:var(--radius);padding:24px;backdrop-filter:blur(10px);margin-bottom:14px;}
+  .audience-row{display:flex;justify-content:space-between;margin-bottom:10px;font-size:13px;padding:8px 0;border-bottom:1px solid rgba(255,255,255,0.03);}
+  .audience-row:last-child{border-bottom:none;margin-bottom:0;}
+  .audience-row-label{color:var(--text-dim);}
+  .audience-row-value{color:var(--text);font-weight:600;}
+
+  .table-card{background:var(--card);border:1px solid var(--card-border);border-radius:var(--radius);padding:24px;margin-bottom:32px;overflow:hidden;backdrop-filter:blur(10px);}
+  .table-wrapper{overflow-x:auto;}
+  table{width:100%;border-collapse:collapse;}
+  thead th{text-align:left;font-size:10px;font-weight:700;color:var(--text-dim);text-transform:uppercase;letter-spacing:1px;padding:12px 16px;border-bottom:1px solid var(--card-border);}
+  tbody td{padding:14px 16px;font-size:13px;color:var(--text-mid);border-bottom:1px solid rgba(255,255,255,0.03);}
+  tbody tr:hover{background:rgba(255,255,255,0.02);}
+  tbody tr:last-child td{border-bottom:none;}
+
+  .pending-state{text-align:center;padding:80px 40px;color:var(--text-dim);}
+  .pending-state-icon{font-size:48px;margin-bottom:16px;opacity:0.4;}
+  .pending-state-text{font-size:14px;max-width:400px;margin:0 auto;line-height:1.6;}
+
+  .ad-metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:32px;}
+  .ad-card{background:var(--card);border:1px solid var(--card-border);border-radius:var(--radius);padding:24px;backdrop-filter:blur(10px);position:relative;overflow:hidden;}
+  .ad-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--mid-blue),var(--accent));opacity:0.6;}
+  .ad-card:hover{background:var(--card-hover);transform:translateY(-3px);box-shadow:0 12px 40px rgba(47,110,187,0.08);transition:all 0.3s;}
+
+  .footer{border-top:1px solid var(--card-border);padding:24px 40px;display:flex;align-items:center;justify-content:space-between;position:relative;z-index:1;}
+  .footer-left{font-size:12px;color:var(--text-dim);}
+  .footer-brand{font-size:12px;color:var(--text-dim);display:flex;align-items:center;gap:8px;}
+  .footer-brand a{color:var(--accent);text-decoration:none;font-weight:600;}
+
+  .best{color:var(--green) !important;}
+
+  /* TRANSITIONS */
+  .view{opacity:0;transition:opacity 0.35s ease;}
+  .view.active{opacity:1;}
+
+  @media(max-width:1200px){.metrics-row,.metrics-row-6,.platform-grid,.ad-metrics{grid-template-columns:repeat(2,1fr);}.charts-grid{grid-template-columns:1fr;}}
+  @media(max-width:768px){.metrics-row,.metrics-row-6,.platform-grid,.ad-metrics{grid-template-columns:1fr;}.main{padding:20px;}.header{padding:16px 20px;}.nav-tabs{padding:12px 20px;overflow-x:auto;}.insights-grid{grid-template-columns:1fr;}}
+  @media(max-width:600px){.portal-grid{grid-template-columns:1fr;}.portal-container{padding:40px 20px;}.footer{flex-direction:column;text-align:center;gap:6px;padding:18px 20px;}}
+  @media(max-width:500px){.header-right{display:none;}}
+</style>
+</head>
+<body>
+
+<!-- ===== PORTAL VIEW ===== -->
+<div class="view active" id="portalView">
+  <div class="portal-container">
+    <div class="logo-section">
+      <img src="Jules_Logo-20191.png" alt="Jules Carwash">
+      <h1>Jules Carwash</h1>
+      <p>Client Portal</p>
+    </div>
+    <div class="divider"></div>
+    <div class="portal-grid">
+      <div class="portal-card primary" onclick="showDashboard()">
+        <div class="portal-icon">&#x1F4CA;</div>
+        <div class="portal-title">Digital Dashboard</div>
+        <div class="portal-desc">Social media analytics, engagement metrics, and cross-platform performance data.</div>
+      </div>
+      <div class="portal-card coming">
+        <div class="portal-icon">&#x1F4C4;</div>
+        <div class="portal-title">Reports</div>
+        <div class="portal-desc">Monthly performance reports and strategic recommendations.</div>
+      </div>
+      <div class="portal-card coming">
+        <div class="portal-icon">&#x1F3AF;</div>
+        <div class="portal-title">Campaign Hub</div>
+        <div class="portal-desc">Paid advertising campaigns, budgets, and ROI tracking.</div>
+      </div>
+      <div class="portal-card coming">
+        <div class="portal-icon">&#x1F4C5;</div>
+        <div class="portal-title">Content Calendar</div>
+        <div class="portal-desc">Upcoming content schedule and post planning across platforms.</div>
+      </div>
+    </div>
+  </div>
+  <div class="footer">
+    <div class="footer-left">Jules Carwash &copy; 2026</div>
+    <div class="footer-brand">Powered by <a href="https://brookerogersdesign.com" target="_blank">Howell'n & Partners</a></div>
+  </div>
+</div>
+
+<!-- ===== DASHBOARD VIEW ===== -->
+<div class="view" id="dashboardView">
+  <div class="header">
+    <div class="logo-area" onclick="showPortal()">
+      <div class="logo-icon">
+        <img src="Jules_Logo-20191.png" alt="Jules Carwash">
+      </div>
+      <div class="logo-divider"></div>
+      <div class="logo-text">
+        <span>Jules Carwash</span>
+        <span>Digital Dashboard</span>
+      </div>
+    </div>
+    <div class="header-right">
+      <div class="header-date" id="currentDate"></div>
+      <div class="header-badge">Live</div>
+    </div>
+  </div>
+
+  <div class="nav-tabs">
+    <button class="nav-tab active" onclick="switchTab('overview',this)">Overview</button>
+    <button class="nav-tab" onclick="switchTab('social',this)">Social Media</button>
+    <button class="nav-tab" onclick="switchTab('paid',this)">Paid Ads</button>
+    <button class="nav-tab" onclick="switchTab('insights',this)">Insights</button>
+    <button class="nav-tab" onclick="switchTab('audience',this)">Audience</button>
+  </div>
+
+  <div class="main" id="mainContent"></div>
+
+  <div class="footer">
+    <div class="footer-left">Jules Carwash &copy; 2026</div>
+    <div class="footer-brand">Powered by <a href="https://brookerogersdesign.com" target="_blank">Howell'n & Partners</a></div>
+  </div>
+</div>
+
+<script>
+// === VIEW SWITCHING ===
+function showDashboard() {
+  document.getElementById('portalView').classList.remove('active');
+  setTimeout(() => {
+    document.getElementById('portalView').style.display = 'none';
+    document.getElementById('dashboardView').style.display = 'flex';
+    document.getElementById('dashboardView').style.flexDirection = 'column';
+    document.getElementById('dashboardView').style.minHeight = '100vh';
+    setTimeout(() => document.getElementById('dashboardView').classList.add('active'), 20);
+    window.scrollTo(0, 0);
+    if (!chartsInitialized) { render(); chartsInitialized = true; }
+  }, 350);
+}
+
+function showPortal() {
+  document.getElementById('dashboardView').classList.remove('active');
+  setTimeout(() => {
+    document.getElementById('dashboardView').style.display = 'none';
+    document.getElementById('portalView').style.display = 'flex';
+    document.getElementById('portalView').style.flexDirection = 'column';
+    document.getElementById('portalView').style.minHeight = '100vh';
+    setTimeout(() => document.getElementById('portalView').classList.add('active'), 20);
+    window.scrollTo(0, 0);
+  }, 350);
+}
+
+let chartsInitialized = false;
+
+// === DATA ===
+const PLATFORMS = [
+  { id:'instagram', name:'Instagram', color:'#E1306C', handle:'@julescarwashfl' },
+  { id:'tiktok',    name:'TikTok',    color:'#FF004F', handle:'@julescarwash' },
+  { id:'facebook',  name:'Facebook',  color:'#1877F2', handle:'@julescarwash' }
+];
+
+const MONTHS = [
+  { id:'apr26', label:'April 2026' },
+  { id:'may26', label:'May 2026' }
+];
+
+const DATA = {
+  apr26: {
+    instagram: {
+      followers:394, views:'20,697', viewsNum:20697, posts:17,
+      engagement:319, engagementRate:'2.9%', engNum:2.9, growth:19
+    },
+    tiktok: {
+      followers:971, views:'13,243', viewsNum:13243, posts:5,
+      engagement:342, engagementRate:'2.6%', engNum:2.6, growth:4
+    },
+    facebook: {
+      followers:0, views:'—', viewsNum:0, posts:0,
+      engagement:0, engagementRate:'—', engNum:0, growth:0
+    },
+    aggregate: {
+      totalEngagement:661, avgEngagementRate:'2.77%', avgEngNum:2.77,
+      totalViews:33940, totalFollowers:1365, growth:23, totalPosts:22
+    },
+    insights: {
+      worked:'Instagram is the clear winner for reach with 20,697 views from 17 posts — driving 61% of all views. TikTok delivers strong engagement with fewer posts (5 posts generating 342 interactions).',
+      didntWork:'Facebook has not yet been activated for content distribution. This represents an untapped channel for local audience reach.',
+      improvements:'Consider increasing TikTok post frequency to match Instagram volume — 5 posts generated nearly as much engagement as 17 Instagram posts. Activate Facebook with localized content targeting the FL market.',
+      audienceInsight:'The audience is highly engaged across both active platforms with a combined 2.77% engagement rate. Instagram is growing fastest with +19 new followers, suggesting strong content-market fit.'
+    },
+    audience: { gender:'TBD', location:'Florida', age:'TBD', profession:'TBD' },
+    ads: {
+      spend:'—', impressions:'—', clicks:'—', ctr:'—',
+      conversions:'—', cpc:'—', roas:'—',
+      campaigns: []
+    }
+  },
+  may26: null
+};
+
+let currentMonth = 'apr26';
+let currentTab = 'overview';
+
+// === DATE ===
+document.getElementById('currentDate').textContent = new Date().toLocaleDateString('en-US',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
+
+// === HELPERS ===
+function formatNum(n) {
+  if (n >= 1000000) return (n/1000000).toFixed(1)+'M';
+  if (n >= 1000) return (n/1000).toFixed(1)+'K';
+  return n.toLocaleString();
+}
+
+function bestPlatform(month, key) {
+  const m = DATA[month];
+  if (!m) return '';
+  let best = '', bestVal = -Infinity;
+  PLATFORMS.forEach(p => { if (m[p.id] && m[p.id][key] > bestVal) { bestVal = m[p.id][key]; best = p.id; } });
+  return best;
+}
+
+// === RENDER ===
+function render() {
+  const main = document.getElementById('mainContent');
+  const md = DATA[currentMonth];
+  const monthLabel = MONTHS.find(m=>m.id===currentMonth)?.label || currentMonth;
+
+  const monthHTML = `<div class="month-tabs">${MONTHS.map(m =>
+    `<button class="month-tab ${m.id===currentMonth?'active':''}" onclick="setMonth('${m.id}')" ${!DATA[m.id]?'style="opacity:0.4;cursor:default;" disabled':''}>${m.label}${!DATA[m.id]?' (Coming)':''}</button>`
+  ).join('')}</div>`;
+
+  if (!md) {
+    main.innerHTML = `${monthHTML}<div class="pending-state"><div class="pending-state-icon">&#x1F4C5;</div><div class="pending-state-text">Data for this month is not yet available. Check back once the reporting period closes.</div></div>`;
+    return;
+  }
+
+  if (currentTab === 'overview') {
+    const agg = md.aggregate;
+    const bestEng = bestPlatform(currentMonth,'engNum');
+    const bestViews = bestPlatform(currentMonth,'viewsNum');
+
+    main.innerHTML = `
+      ${monthHTML}
+      <div class="section-label">Cross-Platform Overview &mdash; ${monthLabel}</div>
+      <div class="metrics-row metrics-row-6">
+        <div class="metric-card">
+          <div class="metric-icon" style="background:var(--accent-dim);color:var(--accent);">&#x1F4DD;</div>
+          <div class="metric-label">Total Posts</div>
+          <div class="metric-value">${agg.totalPosts}</div>
+          <div class="metric-change neutral">ALL PLATFORMS</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-icon" style="background:rgba(130,177,255,0.1);color:var(--blue);">&#x1F441;</div>
+          <div class="metric-label">Total Views</div>
+          <div class="metric-value">${formatNum(agg.totalViews)}</div>
+          <div class="metric-change neutral">ALL PLATFORMS</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-icon" style="background:var(--red-dim);color:var(--red);">&#x2764;</div>
+          <div class="metric-label">Total Engagement</div>
+          <div class="metric-value">${agg.totalEngagement}</div>
+          <div class="metric-change neutral">INTERACTIONS</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-icon" style="background:rgba(255,209,128,0.1);color:var(--orange);">&#x1F4C8;</div>
+          <div class="metric-label">Avg Engagement Rate</div>
+          <div class="metric-value">${agg.avgEngagementRate}</div>
+          <div class="metric-change neutral">CROSS-PLATFORM</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-icon" style="background:rgba(130,177,255,0.1);color:var(--blue);">&#x1F465;</div>
+          <div class="metric-label">Total Followers</div>
+          <div class="metric-value">${formatNum(agg.totalFollowers)}</div>
+          <div class="metric-change neutral">ALL PLATFORMS</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-icon" style="background:rgba(74,222,128,0.1);color:var(--green);">&#x2728;</div>
+          <div class="metric-label">Growth</div>
+          <div class="metric-value">+${agg.growth}</div>
+          <div class="metric-change up">GROWING</div>
+        </div>
+      </div>
+
+      <div class="section-label">By Platform &mdash; ${monthLabel}</div>
+      <div class="platform-grid">
+        ${PLATFORMS.map(p => {
+          const d = md[p.id];
+          const isBestEng = p.id === bestEng;
+          const isBestViews = p.id === bestViews;
+          const growthClass = d.growth > 0 ? 'up' : d.growth < 0 ? 'down' : 'neutral';
+          const growthPrefix = d.growth > 0 ? '+' : '';
+          const isInactive = d.followers === 0 && d.viewsNum === 0;
+          return `<div class="platform-card">
+            <div style="position:absolute;top:0;left:0;right:0;height:3px;background:${p.color};opacity:0.8;border-radius:var(--radius) var(--radius) 0 0;"></div>
+            <div class="platform-header">
+              <div class="platform-name">
+                <div class="platform-dot" style="background:${p.color};"></div>
+                <span>${p.name}</span>
+              </div>
+              <div class="platform-badge">${p.handle}</div>
+            </div>
+            ${isInactive ? `
+              <div style="text-align:center;padding:20px 0;color:var(--text-dim);font-size:13px;">
+                <div style="font-size:28px;margin-bottom:8px;opacity:0.3;">&#x1F6A7;</div>
+                Not yet active — data will appear once content is published.
+              </div>
+            ` : `
+            <div class="platform-stat">
+              <div class="platform-stat-label">Followers</div>
+              <div class="platform-stat-value">${d.followers.toLocaleString()}</div>
+            </div>
+            <div class="platform-stat">
+              <div class="platform-stat-label">Views</div>
+              <div class="platform-stat-value ${isBestViews?'best':''}">${d.views}</div>
+              ${isBestViews?'<div class="platform-stat-sub" style="color:var(--green);">&#9733; HIGHEST</div>':''}
+            </div>
+            <div class="platform-stat">
+              <div class="platform-stat-label">Posts</div>
+              <div class="platform-stat-value">${d.posts}</div>
+            </div>
+            <div class="platform-stat">
+              <div class="platform-stat-label">Engagement</div>
+              <div class="platform-stat-value">${d.engagement}</div>
+            </div>
+            <div class="platform-stat">
+              <div class="platform-stat-label">Engagement Rate</div>
+              <div class="platform-stat-value ${isBestEng?'best':''}">${d.engagementRate}</div>
+              ${isBestEng?'<div class="platform-stat-sub" style="color:var(--green);">&#9733; HIGHEST</div>':''}
+            </div>
+            <div class="platform-stat">
+              <div class="platform-stat-label">Growth</div>
+              <div class="platform-stat-value"><span class="metric-change ${growthClass}">${growthPrefix}${d.growth}</span></div>
+            </div>
+            `}
+          </div>`;
+        }).join('')}
+      </div>
+
+      <div class="section-label">Visual Breakdown &mdash; ${monthLabel}</div>
+      <div class="charts-grid">
+        <div class="chart-card">
+          <div class="chart-header"><div class="chart-title">Views by Platform</div></div>
+          <div class="chart-container"><canvas id="viewsChart"></canvas></div>
+        </div>
+        <div class="chart-card">
+          <div class="chart-header"><div class="chart-title">Engagement Distribution</div></div>
+          <div class="chart-container"><canvas id="engDoughnut"></canvas></div>
+        </div>
+      </div>
+      <div class="charts-grid charts-grid-equal">
+        <div class="chart-card">
+          <div class="chart-header"><div class="chart-title">Engagement Rate by Platform</div></div>
+          <div class="chart-container"><canvas id="engRateChart"></canvas></div>
+        </div>
+        <div class="chart-card">
+          <div class="chart-header"><div class="chart-title">Follower Distribution</div></div>
+          <div class="chart-container"><canvas id="followerDoughnut"></canvas></div>
+        </div>
+      </div>
+    `;
+    initOverviewCharts();
+
+  } else if (currentTab === 'social') {
+    main.innerHTML = `
+      ${monthHTML}
+      <div class="section-label">Platform Performance &mdash; ${monthLabel}</div>
+      <div class="table-card">
+        <div class="chart-header"><div class="chart-title">All Platforms Comparison</div></div>
+        <div class="table-wrapper">
+          <table>
+            <thead><tr>
+              <th>Platform</th><th>Followers</th><th>Views</th><th>Posts</th><th>Engagement</th><th>Eng. Rate</th><th>Growth</th>
+            </tr></thead>
+            <tbody>
+              ${PLATFORMS.map(p => {
+                const d = md[p.id];
+                const growthClass = d.growth > 0 ? 'color:var(--green)' : d.growth < 0 ? 'color:var(--red)' : '';
+                const growthPrefix = d.growth > 0 ? '+' : '';
+                return `<tr>
+                  <td style="color:var(--text);font-weight:600;"><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:${p.color};margin-right:8px;"></span>${p.name}</td>
+                  <td>${d.followers.toLocaleString()}</td>
+                  <td style="font-weight:600;color:var(--text);">${d.views}</td>
+                  <td>${d.posts}</td>
+                  <td>${d.engagement}</td>
+                  <td style="font-weight:600;color:var(--text);">${d.engagementRate}</td>
+                  <td style="${growthClass};font-weight:600;">${growthPrefix}${d.growth}</td>
+                </tr>`;
+              }).join('')}
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="section-label">Platform Contribution &mdash; ${monthLabel}</div>
+      <div class="charts-grid charts-grid-equal">
+        <div class="chart-card">
+          <div class="chart-header"><div class="chart-title">Views Distribution</div></div>
+          <div class="chart-container"><canvas id="socialViewsDoughnut"></canvas></div>
+        </div>
+        <div class="chart-card">
+          <div class="chart-header"><div class="chart-title">Engagement Contribution</div></div>
+          <div class="chart-container"><canvas id="socialEngDoughnut"></canvas></div>
+        </div>
+      </div>
+    `;
+    initSocialCharts();
+
+  } else if (currentTab === 'paid') {
+    const ads = md.ads;
+    const hasCampaigns = ads.campaigns && ads.campaigns.length > 0;
+    main.innerHTML = `
+      ${monthHTML}
+      <div class="section-label">Paid Advertising &mdash; ${monthLabel}</div>
+      <div class="ad-metrics">
+        <div class="ad-card"><div class="metric-label">Ad Spend</div><div class="metric-value">${ads.spend}</div></div>
+        <div class="ad-card"><div class="metric-label">Impressions</div><div class="metric-value">${ads.impressions}</div></div>
+        <div class="ad-card"><div class="metric-label">Clicks</div><div class="metric-value">${ads.clicks}</div></div>
+        <div class="ad-card"><div class="metric-label">CTR</div><div class="metric-value">${ads.ctr}</div></div>
+      </div>
+      <div class="ad-metrics">
+        <div class="ad-card"><div class="metric-label">Conversions</div><div class="metric-value">${ads.conversions}</div></div>
+        <div class="ad-card"><div class="metric-label">Cost Per Click</div><div class="metric-value">${ads.cpc}</div></div>
+        <div class="ad-card"><div class="metric-label">ROAS</div><div class="metric-value">${ads.roas}</div></div>
+        <div class="ad-card"><div class="metric-label">Campaigns</div><div class="metric-value">${hasCampaigns ? ads.campaigns.length : '—'}</div></div>
+      </div>
+      ${!hasCampaigns ? `<div class="pending-state" style="padding:40px;"><div class="pending-state-icon">&#x1F4B0;</div><div class="pending-state-text">Paid advertising data will be populated here once campaign metrics are provided.</div></div>` : `
+        <div class="section-label">Campaign Breakdown</div>
+        <div class="table-card"><div class="table-wrapper"><table>
+          <thead><tr><th>Campaign</th><th>Platform</th><th>Spend</th><th>Impressions</th><th>Clicks</th><th>CTR</th><th>Conversions</th><th>CPC</th></tr></thead>
+          <tbody>${ads.campaigns.map(c => `<tr><td style="color:var(--text);font-weight:600;">${c.name}</td><td>${c.platform}</td><td>${c.spend}</td><td>${c.impressions}</td><td>${c.clicks}</td><td>${c.ctr}</td><td>${c.conversions}</td><td>${c.cpc}</td></tr>`).join('')}</tbody>
+        </table></div></div>`}
+    `;
+
+  } else if (currentTab === 'insights') {
+    const ins = md.insights;
+    const hasInsights = ins && (ins.worked || ins.didntWork || ins.improvements || ins.audienceInsight);
+    main.innerHTML = `
+      ${monthHTML}
+      <div class="section-label">Content Strategy Insights &mdash; ${monthLabel}</div>
+      ${hasInsights ? `
+        <div class="insights-grid">
+          ${ins.worked ? `<div class="insight-card"><div class="insight-label" style="color:var(--green);">What Worked</div><div class="insight-text">${ins.worked}</div></div>` : ''}
+          ${ins.didntWork ? `<div class="insight-card"><div class="insight-label" style="color:var(--red);">What Didn't Work</div><div class="insight-text">${ins.didntWork}</div></div>` : ''}
+          ${ins.improvements ? `<div class="insight-card"><div class="insight-label" style="color:var(--accent);">Improvements</div><div class="insight-text">${ins.improvements}</div></div>` : ''}
+          ${ins.audienceInsight ? `<div class="insight-card"><div class="insight-label" style="color:var(--blue);">Audience Insight</div><div class="insight-text">${ins.audienceInsight}</div></div>` : ''}
+        </div>
+      ` : `<div class="pending-state" style="padding:40px;"><div class="pending-state-icon">&#x1F4A1;</div><div class="pending-state-text">Detailed content insights will be added as patterns emerge.</div></div>`}
+      <div class="section-label">Platform Snapshot &mdash; ${monthLabel}</div>
+      <div class="platform-grid">
+        ${PLATFORMS.filter(p => md[p.id].viewsNum > 0).map(p => {
+          const d = md[p.id];
+          return `<div class="platform-card">
+            <div style="position:absolute;top:0;left:0;right:0;height:3px;background:${p.color};opacity:0.8;border-radius:var(--radius) var(--radius) 0 0;"></div>
+            <div class="platform-header"><div class="platform-name"><div class="platform-dot" style="background:${p.color};"></div><span>${p.name}</span></div></div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+              <div class="platform-stat"><div class="platform-stat-label">Views</div><div class="platform-stat-value">${d.views}</div></div>
+              <div class="platform-stat"><div class="platform-stat-label">Engagement Rate</div><div class="platform-stat-value">${d.engagementRate}</div></div>
+              <div class="platform-stat"><div class="platform-stat-label">Engagement</div><div class="platform-stat-value">${d.engagement}</div></div>
+              <div class="platform-stat"><div class="platform-stat-label">Posts</div><div class="platform-stat-value">${d.posts}</div></div>
+            </div>
+          </div>`;
+        }).join('')}
+      </div>
+    `;
+
+  } else if (currentTab === 'audience') {
+    const aud = md.audience;
+    const activePlatforms = PLATFORMS.filter(p => md[p.id].followers > 0);
+    main.innerHTML = `
+      ${monthHTML}
+      <div class="section-label">Audience Overview &mdash; ${monthLabel}</div>
+      <div class="charts-grid charts-grid-equal" style="margin-bottom:20px;">
+        <div class="audience-card">
+          <div class="chart-header"><div class="chart-title">Demographics</div></div>
+          <div class="audience-row"><span class="audience-row-label">Gender Split</span><span class="audience-row-value">${aud.gender}</span></div>
+          <div class="audience-row"><span class="audience-row-label">Primary Location</span><span class="audience-row-value">${aud.location}</span></div>
+          <div class="audience-row"><span class="audience-row-label">Age Range</span><span class="audience-row-value">${aud.age}</span></div>
+          <div class="audience-row"><span class="audience-row-label">Primary Profession</span><span class="audience-row-value">${aud.profession}</span></div>
+        </div>
+        <div class="audience-card">
+          <div class="chart-header"><div class="chart-title">Follower Summary</div></div>
+          ${activePlatforms.map(p => {
+            const d = md[p.id];
+            const growthPrefix = d.growth > 0 ? '+' : '';
+            const growthColor = d.growth > 0 ? 'var(--green)' : d.growth < 0 ? 'var(--red)' : 'var(--text-dim)';
+            return `<div class="audience-row">
+              <span class="audience-row-label"><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:${p.color};margin-right:6px;"></span>${p.name} (${d.followers.toLocaleString()})</span>
+              <span class="audience-row-value" style="color:${growthColor};">${growthPrefix}${d.growth} growth</span>
+            </div>`;
+          }).join('')}
+          <div class="audience-row" style="border-top:1px solid var(--card-border);padding-top:12px;margin-top:4px;">
+            <span class="audience-row-label" style="font-weight:600;color:var(--text);">Total Followers</span>
+            <span class="audience-row-value" style="color:var(--accent);">${md.aggregate.totalFollowers.toLocaleString()}</span>
+          </div>
+          <div class="audience-row">
+            <span class="audience-row-label" style="font-weight:600;color:var(--text);">Total Growth</span>
+            <span class="audience-row-value" style="color:var(--accent);">+${md.aggregate.growth}</span>
+          </div>
+        </div>
+      </div>
+      <div class="section-label">Platform Engagement Comparison</div>
+      <div class="charts-grid">
+        <div class="chart-card"><div class="chart-header"><div class="chart-title">Engagement Rate by Platform</div></div><div class="chart-container"><canvas id="audEngChart"></canvas></div></div>
+        <div class="chart-card"><div class="chart-header"><div class="chart-title">Engagement Distribution</div></div><div class="chart-container"><canvas id="audSplitChart"></canvas></div></div>
+      </div>
+    `;
+    initAudienceCharts();
+  }
+}
+
+// === CHART SETUP ===
+Chart.defaults.color = 'rgba(255,255,255,0.45)';
+Chart.defaults.borderColor = 'rgba(255,255,255,0.06)';
+Chart.defaults.font.family = "'Avenir','Avenir Next','Inter',-apple-system,BlinkMacSystemFont,sans-serif";
+let charts = {};
+function destroyChart(id) { if(charts[id]){charts[id].destroy();delete charts[id];} }
+function getActivePlatColors() { const md=DATA[currentMonth]; return PLATFORMS.filter(p=>md&&md[p.id]&&md[p.id].viewsNum>0).map(p=>p.color); }
+function getActivePlatNames() { const md=DATA[currentMonth]; return PLATFORMS.filter(p=>md&&md[p.id]&&md[p.id].viewsNum>0).map(p=>p.name); }
+function getActiveMetric(key) { const md=DATA[currentMonth]; return PLATFORMS.filter(p=>md&&md[p.id]&&md[p.id].viewsNum>0).map(p=> md[p.id][key]); }
+
+function initOverviewCharts() {
+  destroyChart('viewsChart'); destroyChart('engDoughnut'); destroyChart('engRateChart'); destroyChart('followerDoughnut');
+  const ctx1 = document.getElementById('viewsChart')?.getContext('2d');
+  if(ctx1) charts['viewsChart'] = new Chart(ctx1, {
+    type:'bar', data:{ labels:getActivePlatNames(), datasets:[{ label:'Views', data:getActiveMetric('viewsNum'), backgroundColor:getActivePlatColors().map(c=>c+'CC'), borderRadius:10, barPercentage:0.6 }] },
+    options:{ responsive:true, maintainAspectRatio:false, plugins:{legend:{display:false}}, scales:{y:{grid:{color:'rgba(255,255,255,0.04)'},ticks:{callback:v=>formatNum(v)}},x:{grid:{display:false}}} }
+  });
+  const ctx2 = document.getElementById('engDoughnut')?.getContext('2d');
+  if(ctx2) charts['engDoughnut'] = new Chart(ctx2, {
+    type:'doughnut', data:{ labels:getActivePlatNames(), datasets:[{ data:getActiveMetric('engagement'), backgroundColor:getActivePlatColors(), borderWidth:0, spacing:4 }] },
+    options:{ responsive:true, maintainAspectRatio:false, cutout:'70%', plugins:{legend:{position:'bottom',labels:{usePointStyle:true,pointStyle:'circle',padding:12,font:{size:11}}}} }
+  });
+  const ctx3 = document.getElementById('engRateChart')?.getContext('2d');
+  if(ctx3) charts['engRateChart'] = new Chart(ctx3, {
+    type:'bar', data:{ labels:getActivePlatNames(), datasets:[{ label:'Eng. Rate', data:getActiveMetric('engNum'), backgroundColor:getActivePlatColors().map(c=>c+'CC'), borderRadius:10, barPercentage:0.6 }] },
+    options:{ responsive:true, maintainAspectRatio:false, plugins:{legend:{display:false}}, scales:{y:{grid:{color:'rgba(255,255,255,0.04)'},ticks:{callback:v=>v+'%'}},x:{grid:{display:false}}} }
+  });
+  const ctx4 = document.getElementById('followerDoughnut')?.getContext('2d');
+  if(ctx4) charts['followerDoughnut'] = new Chart(ctx4, {
+    type:'doughnut', data:{ labels:getActivePlatNames(), datasets:[{ data:getActiveMetric('followers'), backgroundColor:getActivePlatColors(), borderWidth:0, spacing:4 }] },
+    options:{ responsive:true, maintainAspectRatio:false, cutout:'70%', plugins:{legend:{position:'bottom',labels:{usePointStyle:true,pointStyle:'circle',padding:12,font:{size:11}}}} }
+  });
+}
+
+function initSocialCharts() {
+  destroyChart('socialViewsDoughnut'); destroyChart('socialEngDoughnut');
+  const ctx1 = document.getElementById('socialViewsDoughnut')?.getContext('2d');
+  if(ctx1) charts['socialViewsDoughnut'] = new Chart(ctx1, {
+    type:'doughnut', data:{ labels:getActivePlatNames(), datasets:[{ data:getActiveMetric('viewsNum'), backgroundColor:getActivePlatColors(), borderWidth:0, spacing:4 }] },
+    options:{ responsive:true, maintainAspectRatio:false, cutout:'70%', plugins:{legend:{position:'bottom',labels:{usePointStyle:true,pointStyle:'circle',padding:12,font:{size:11}}}} }
+  });
+  const ctx2 = document.getElementById('socialEngDoughnut')?.getContext('2d');
+  if(ctx2) charts['socialEngDoughnut'] = new Chart(ctx2, {
+    type:'doughnut', data:{ labels:getActivePlatNames(), datasets:[{ data:getActiveMetric('engagement'), backgroundColor:getActivePlatColors(), borderWidth:0, spacing:4 }] },
+    options:{ responsive:true, maintainAspectRatio:false, cutout:'70%', plugins:{legend:{position:'bottom',labels:{usePointStyle:true,pointStyle:'circle',padding:12,font:{size:11}}}} }
+  });
+}
+
+function initAudienceCharts() {
+  destroyChart('audEngChart'); destroyChart('audSplitChart');
+  const ctx1 = document.getElementById('audEngChart')?.getContext('2d');
+  if(ctx1) charts['audEngChart'] = new Chart(ctx1, {
+    type:'bar', data:{ labels:getActivePlatNames(), datasets:[{ label:'Engagement %', data:getActiveMetric('engNum'), backgroundColor:getActivePlatColors().map(c=>c+'CC'), borderRadius:10, barPercentage:0.6 }] },
+    options:{ responsive:true, maintainAspectRatio:false, plugins:{legend:{display:false}}, scales:{y:{grid:{color:'rgba(255,255,255,0.04)'},ticks:{callback:v=>v+'%'}},x:{grid:{display:false}}} }
+  });
+  const ctx2 = document.getElementById('audSplitChart')?.getContext('2d');
+  if(ctx2) charts['audSplitChart'] = new Chart(ctx2, {
+    type:'doughnut', data:{ labels:getActivePlatNames(), datasets:[{ data:getActiveMetric('engagement'), backgroundColor:getActivePlatColors(), borderWidth:0, spacing:4 }] },
+    options:{ responsive:true, maintainAspectRatio:false, cutout:'70%', plugins:{legend:{position:'bottom',labels:{usePointStyle:true,pointStyle:'circle',padding:12,font:{size:11}}}} }
+  });
+}
+
+// === NAV ===
+function switchTab(tab, btn) {
+  document.querySelectorAll('.nav-tabs .nav-tab').forEach(t=>t.classList.remove('active'));
+  btn.classList.add('active');
+  currentTab = tab;
+  render();
+}
+function setMonth(month) {
+  if (!DATA[month]) return;
+  currentMonth = month;
+  render();
+}
+</script>
+</body>
+</html>
