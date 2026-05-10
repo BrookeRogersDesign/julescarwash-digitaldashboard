@@ -4,6 +4,14 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Jules Carwash | Client Portal</title>
+<meta property="og:title" content="Jules Carwash | Client Portal">
+<meta property="og:description" content="Social media analytics, engagement metrics, and cross-platform performance data.">
+<meta property="og:image" content="Thumbnail.jpg">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Jules Carwash | Client Portal">
+<meta name="twitter:image" content="Thumbnail.jpg">
+<link rel="icon" type="image/png" href="Jules_Logo-20191.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.5.0/dist/chart.umd.js"></script>
@@ -48,7 +56,7 @@
   .portal-card.primary{border-color:rgba(47,110,187,0.25);}
   .portal-card.primary::before{opacity:0.6;}
   .portal-card.coming{opacity:0.5;pointer-events:none;cursor:default;}
-  .portal-card.coming .portal-title::after{content:' (Coming Soon)';font-size:10px;color:var(--text-dim);font-weight:500;}
+  .coming-tag{font-size:11px;color:var(--text-dim);letter-spacing:1.5px;text-transform:uppercase;margin-top:14px;font-weight:600;}
 
   /* ===== DASHBOARD ===== */
   .header{background:linear-gradient(180deg,rgba(47,110,187,0.10) 0%,transparent 100%);border-bottom:1px solid var(--card-border);padding:20px 40px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);}
@@ -179,16 +187,19 @@
         <div class="portal-icon">&#x1F4C4;</div>
         <div class="portal-title">Reports</div>
         <div class="portal-desc">Monthly performance reports and strategic recommendations.</div>
+        <div class="coming-tag">Coming Soon</div>
       </div>
       <div class="portal-card coming">
         <div class="portal-icon">&#x1F3AF;</div>
         <div class="portal-title">Campaign Hub</div>
         <div class="portal-desc">Paid advertising campaigns, budgets, and ROI tracking.</div>
+        <div class="coming-tag">Coming Soon</div>
       </div>
       <div class="portal-card coming">
         <div class="portal-icon">&#x1F4C5;</div>
         <div class="portal-title">Content Calendar</div>
         <div class="portal-desc">Upcoming content schedule and post planning across platforms.</div>
+        <div class="coming-tag">Coming Soon</div>
       </div>
     </div>
   </div>
