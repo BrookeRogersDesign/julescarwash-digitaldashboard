@@ -283,7 +283,8 @@ const PLATFORMS = [
 
 const MONTHS = [
   { id:'apr26', label:'April 2026' },
-  { id:'may26', label:'May 2026' }
+  { id:'may26', label:'May 2026' },
+  { id:'jun26', label:'June 2026' }
 ];
 
 const DATA = {
@@ -346,10 +347,40 @@ const DATA = {
       conversions:'—', cpc:'—', roas:'—',
       campaigns: []
     }
+  },
+  jun26: {
+    instagram: {
+      followers:430, views:'1,531', viewsNum:1531, posts:7,
+      engagement:155, engagementRate:'4.1%', engNum:4.1, growth:27
+    },
+    tiktok: {
+      followers:1595, views:'2,400', viewsNum:2400, posts:3,
+      engagement:64, engagementRate:'2.7%', engNum:2.7, growth:201
+    },
+    facebook: {
+      followers:0, views:'—', viewsNum:0, posts:0,
+      engagement:0, engagementRate:'—', engNum:0, growth:0
+    },
+    aggregate: {
+      totalEngagement:219, avgEngagementRate:'3.40%', avgEngNum:3.40,
+      totalViews:3931, totalFollowers:2025, growth:228, totalPosts:10
+    },
+    insights: {
+      worked:'Reels with relatable, humor-driven hooks dominated as well as videos that leaned into educational/tips. The pattern is clear: Reels that make people feel seen or teach them something quick are your winners.',
+      didntWork:'Carousels lacked performance this month. When we show a service but didn\'t invite the audience in, engagement dropped.',
+      improvements:'Push more engaging graphics and relatable posts. Less standard carousels. Lead every Reel with a relatable pain point or question. Lean into seasonal/local hooks.',
+      audienceInsight:'Top cities are Tampa (11%), Fish Hawk (8.9%), Brandon (6.8%), Gibsonton (6.2%), and Riverview (4.1%) — all within our service area. Age skews 25-34 (31%) and 35-44 (20%), which are prime car-owning demographics. The takeaway: we are reaching the right people.'
+    },
+    audience: { gender:'TBD', location:'Tampa, FL area', age:'25-34 (31%), 35-44 (20%)', profession:'TBD' },
+    ads: {
+      spend:'—', impressions:'—', clicks:'—', ctr:'—',
+      conversions:'—', cpc:'—', roas:'—',
+      campaigns: []
+    }
   }
 };
 
-let currentMonth = 'apr26';
+let currentMonth = 'jun26';
 let currentTab = 'overview';
 
 // === DATE ===
