@@ -284,7 +284,8 @@ const PLATFORMS = [
 const MONTHS = [
   { id:'apr26', label:'April 2026' },
   { id:'may26', label:'May 2026' },
-  { id:'jun26', label:'June 2026' }
+  { id:'jun26', label:'June 2026' },
+  { id:'jul26', label:'July 2026' }
 ];
 
 const DATA = {
@@ -377,10 +378,40 @@ const DATA = {
       conversions:'—', cpc:'—', roas:'—',
       campaigns: []
     }
+  },
+  jul26: {
+    instagram: {
+      followers:420, views:'14,000', viewsNum:14000, posts:11,
+      engagement:130, engagementRate:'3.2%', engNum:3.2, growth:0
+    },
+    tiktok: {
+      followers:1190, views:'4,620', viewsNum:4620, posts:3,
+      engagement:45, engagementRate:'1.0%', engNum:1.0, growth:0
+    },
+    facebook: {
+      followers:0, views:'—', viewsNum:0, posts:0,
+      engagement:0, engagementRate:'—', engNum:0, growth:0
+    },
+    aggregate: {
+      totalEngagement:175, avgEngagementRate:'2.10%', avgEngNum:2.10,
+      totalViews:18620, totalFollowers:1610, growth:0, totalPosts:14
+    },
+    insights: {
+      worked:'Reels are dominating. Humor and relatability outperformed every other content angle. Instagram accounts engaged jumped 135%. More people are interacting with the content overall, which is a strong directional signal.',
+      didntWork:'Static images are not moving the needle. The audience isn\'t engaging with content that reads salesly/like an ad.',
+      improvements:'Stop posting on Mondays. Three Monday posts averaged 151 views. Move that content to Wednesday or Tuesday evenings where the numbers are dramatically better. End captions with CTAs that are local and specific — e.g. "What\'s the most Florida thing that\'s ever happened to your car?" gives people an easy entry point.',
+      audienceInsight:'The local Tampa Bay community is the real audience. Top cities engaging: Tampa (11.5%), Fish Hawk (8.8%), Brandon (6.8%), Gibsonton (5.4%), Riverview (4.7%), and Mango (3.4%). These are the people who can actually drive through the wash — the content is landing in the right neighborhoods. The audience responds to personality, not polish.'
+    },
+    audience: { gender:'TBD', location:'Tampa Bay, FL', age:'25-34 & 35-44 primary', profession:'TBD' },
+    ads: {
+      spend:'—', impressions:'—', clicks:'—', ctr:'—',
+      conversions:'—', cpc:'—', roas:'—',
+      campaigns: []
+    }
   }
 };
 
-let currentMonth = 'jun26';
+let currentMonth = 'jul26';
 let currentTab = 'overview';
 
 // === DATE ===
