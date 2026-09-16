@@ -285,7 +285,8 @@ const MONTHS = [
   { id:'apr26', label:'April 2026' },
   { id:'may26', label:'May 2026' },
   { id:'jun26', label:'June 2026' },
-  { id:'jul26', label:'July 2026' }
+  { id:'jul26', label:'July 2026' },
+  { id:'aug26', label:'August 2026' }
 ];
 
 const DATA = {
@@ -408,10 +409,40 @@ const DATA = {
       conversions:'—', cpc:'—', roas:'—',
       campaigns: []
     }
+  },
+  aug26: {
+    instagram: {
+      followers:424, views:'12,002', viewsNum:12002, posts:15,
+      engagement:188, engagementRate:'3.5%', engNum:3.5, growth:4
+    },
+    tiktok: {
+      followers:1213, views:'18,616', viewsNum:18616, posts:6,
+      engagement:1258, engagementRate:'6.8%', engNum:6.8, growth:23
+    },
+    facebook: {
+      followers:0, views:'—', viewsNum:0, posts:0,
+      engagement:0, engagementRate:'—', engNum:0, growth:0
+    },
+    aggregate: {
+      totalEngagement:1446, avgEngagementRate:'5.15%', avgEngNum:5.15,
+      totalViews:30618, totalFollowers:1637, growth:27, totalPosts:21
+    },
+    insights: {
+      worked:'The "We\'ve all been here" relatable/humor format is the best performer on both platforms by a mile — 819 likes, 163 shares, 20 comments on TikTok, an 11.9K view outlier. Sensory/relatable humor + local hashtags (#BrandonFL #RiverviewFL #FishHawkFL) is clearly resonating. Reels/Video dramatically outperforms static images — video is 9x IG images, and TikTok video averages 3.1K vs IG\'s overall post average. Saturday is the best day by far (avg score 3,838), Wednesday is a solid second (1,030 avg).',
+      didntWork:'Static images are the weak link. Average rank score of 143 on IG vs 1,321 for Reels — if a caption doesn\'t have a video behind it, it\'s getting a fraction of the reach. Several images (Aug 20, 25, 31) dipped well below the IG image average, and a few Reels/TikTok videos ("hard work/employee appreciation" and "Express Wash" clips) undershot their video baseline too — still solid in absolute terms, but below what the format usually delivers. Posting on Tuesdays is a dead zone.',
+      improvements:'Double down on the "relatable humor + ASMR wash visual" format specifically. Concentrate posting around Saturday and Wednesday. Give the brand-warmth content (employee appreciation, location tours) a stronger hook.',
+      audienceInsight:'Geography: the local strategy is landing exactly where it should. 25-54 is nearly 68% of the audience — that lines up with the persona target of "working adults and families 25-44." Gender: close to even, slight female lean.'
+    },
+    audience: { gender:'Close to even, slight female lean', location:'Tampa Bay, FL', age:'25-54 (68% of audience)', profession:'TBD' },
+    ads: {
+      spend:'—', impressions:'—', clicks:'—', ctr:'—',
+      conversions:'—', cpc:'—', roas:'—',
+      campaigns: []
+    }
   }
 };
 
-let currentMonth = 'jul26';
+let currentMonth = 'aug26';
 let currentTab = 'overview';
 
 // === DATE ===
