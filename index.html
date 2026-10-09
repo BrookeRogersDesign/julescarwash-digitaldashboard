@@ -154,14 +154,25 @@
   .footer-brand{font-size:12px;color:var(--text-dim);display:flex;align-items:center;gap:8px;}
   .footer-brand a{color:var(--accent);text-decoration:none;font-weight:600;}
 
+  .content-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:32px;}
+  .content-group{background:var(--card);border:1px solid var(--card-border);border-radius:var(--radius);padding:24px;backdrop-filter:blur(10px);}
+  .content-group-title{font-size:10px;text-transform:uppercase;letter-spacing:1px;margin-bottom:14px;font-weight:700;}
+  .content-item{display:flex;align-items:center;gap:12px;padding:12px 14px;margin-bottom:8px;border-radius:var(--radius-sm);background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.04);text-decoration:none;color:var(--text);transition:all 0.25s;}
+  .content-item:last-child{margin-bottom:0;}
+  .content-item:hover{background:rgba(47,110,187,0.10);border-color:rgba(47,110,187,0.3);transform:translateX(3px);}
+  .content-rank{font-size:12px;font-weight:700;color:var(--text-dim);width:18px;flex-shrink:0;}
+  .content-body{flex:1;min-width:0;}
+  .content-type{font-size:13px;font-weight:600;display:flex;align-items:center;gap:8px;}
+  .content-stats{font-size:11px;color:var(--text-dim);margin-top:2px;}
+  .content-arrow{font-size:14px;color:var(--text-dim);flex-shrink:0;}
   .best{color:var(--green) !important;}
 
   /* TRANSITIONS */
   .view{opacity:0;transition:opacity 0.35s ease;}
   .view.active{opacity:1;}
 
-  @media(max-width:1200px){.metrics-row,.metrics-row-6,.platform-grid,.ad-metrics{grid-template-columns:repeat(2,1fr);}.charts-grid{grid-template-columns:1fr;}}
-  @media(max-width:768px){.metrics-row,.metrics-row-6,.platform-grid,.ad-metrics{grid-template-columns:1fr;}.main{padding:20px;}.header{padding:16px 20px;}.nav-tabs{padding:12px 20px;overflow-x:auto;}.insights-grid{grid-template-columns:1fr;}}
+  @media(max-width:1200px){.metrics-row,.metrics-row-6,.platform-grid,.ad-metrics,.content-grid{grid-template-columns:repeat(2,1fr);}.charts-grid{grid-template-columns:1fr;}}
+  @media(max-width:768px){.metrics-row,.metrics-row-6,.platform-grid,.ad-metrics,.content-grid{grid-template-columns:1fr;}.main{padding:20px;}.header{padding:16px 20px;}.nav-tabs{padding:12px 20px;overflow-x:auto;}.insights-grid{grid-template-columns:1fr;}}
   @media(max-width:600px){.portal-grid{grid-template-columns:1fr;}.portal-container{padding:40px 20px;}.footer{flex-direction:column;text-align:center;gap:6px;padding:18px 20px;}}
   @media(max-width:500px){.header-right{display:none;}}
 </style>
@@ -475,6 +486,75 @@ const DATA = {
   }
 };
 
+// Top & lowest performing content, from the "Jules Social Media Analytics '26" sheet.
+// Grouped by the month each post went live. kind: 'post' | 'reel' | 'video'
+const IG = 'https://www.instagram.com/', TT = 'https://www.tiktok.com/@julescarwash/video/';
+const CONTENT = {
+  may26: {
+    topPosts: [
+      { platform:'instagram', kind:'post', url:IG+'p/DYXxn5vFG5E/' },
+      { platform:'instagram', kind:'post', url:IG+'p/DY70wjMFF_Q/' },
+      { platform:'instagram', kind:'post', url:IG+'p/DYxc3iMlMV3/' }
+    ],
+    lowest: [
+      { platform:'tiktok',    kind:'video', url:TT+'7644681904486173966' },
+      { platform:'tiktok',    kind:'video', url:TT+'7639407362884766990' },
+      { platform:'instagram', kind:'reel',  url:IG+'reels/DY20iUCDRUj/' }
+    ]
+  },
+  jun26: {
+    topPosts: [
+      { platform:'instagram', kind:'post', url:IG+'p/DZN4BQnlMCq/' },
+      { platform:'instagram', kind:'post', url:IG+'p/DZ8TUSLlGi6/' },
+      { platform:'instagram', kind:'post', url:IG+'p/DZ6xvHIEY0o/' }
+    ],
+    topVideos: [
+      { platform:'instagram', kind:'reel',  url:IG+'reels/DZs3MGdjB6D/' },
+      { platform:'instagram', kind:'reel',  url:IG+'reels/DZIzlyFH_3O/' },
+      { platform:'tiktok',    kind:'video', url:TT+'7649467092747504909' }
+    ]
+  },
+  jul26: {
+    topPosts: [
+      { platform:'instagram', kind:'post', url:IG+'p/DbYfq5GlSSF/' }
+    ],
+    topVideos: [
+      { platform:'instagram', kind:'reel',  url:IG+'reels/Da1KtdvCfNR/' },
+      { platform:'tiktok',    kind:'video', url:TT+'7662917566192438541' }
+    ]
+  },
+  aug26: {
+    topPosts: [
+      { platform:'instagram', kind:'post', url:IG+'p/DbrHJvtGELX/' },
+      { platform:'instagram', kind:'post', url:IG+'p/Db_CP3GIPue/' },
+      { platform:'instagram', kind:'post', url:IG+'p/DcjypXVm5EW/' }
+    ],
+    topVideos: [
+      { platform:'instagram', kind:'reel',  url:IG+'reels/DcERdW7CC4v/' },
+      { platform:'instagram', kind:'reel',  url:IG+'reels/DcbcsYkgUJq/' },
+      { platform:'instagram', kind:'reel',  url:IG+'reels/DcPOBPBAnjI/' },
+      { platform:'tiktok',    kind:'video', url:TT+'7674289381942906126' },
+      { platform:'tiktok',    kind:'video', url:TT+'7676592477540846861' },
+      { platform:'tiktok',    kind:'video', url:TT+'7675867069660843277' }
+    ]
+  },
+  sep26: {
+    topPosts: [
+      { platform:'instagram', kind:'post', url:IG+'p/Dd2FusIm9Fk/', stats:'Reach 135 · 35 engagements · 31 likes · 3 comments' },
+      { platform:'instagram', kind:'post', url:IG+'p/DdZvy5ym4gU/', stats:'Reach 255 · 35 engagements · 25 likes · 4 comments' },
+      { platform:'instagram', kind:'post', url:IG+'p/Dd4qBdUGUzG/', stats:'Reach 120 · 8 engagements · 2 likes · 5 shares' }
+    ],
+    topVideos: [
+      { platform:'instagram', kind:'reel',  url:IG+'reels/DdXMgqoDya4/', stats:'1,975 views · reach 1,392 · 17 engagements' },
+      { platform:'instagram', kind:'reel',  url:IG+'reels/DczKhEqEXpj/', stats:'1,925 views · reach 1,470 · 22 engagements' },
+      { platform:'instagram', kind:'reel',  url:IG+'reels/Ddm1hrNkVtx/', stats:'1,707 views · reach 1,476 · 30 engagements' },
+      { platform:'tiktok',    kind:'video', url:TT+'7681047326076505358', stats:'1,251 views · 48 engagements · 47 likes' },
+      { platform:'tiktok',    kind:'video', url:TT+'7686240001566182669', stats:'1,148 views · 27 engagements · 27 likes' },
+      { platform:'tiktok',    kind:'video', url:TT+'7688494027959700749', stats:'395 views · 18 engagements · 17 likes' }
+    ]
+  }
+};
+
 let currentMonth = 'sep26';
 let currentTab = 'overview';
 
@@ -494,6 +574,34 @@ function bestPlatform(month, key) {
   let best = '', bestVal = -Infinity;
   PLATFORMS.forEach(p => { if (m[p.id] && m[p.id][key] > bestVal) { bestVal = m[p.id][key]; best = p.id; } });
   return best;
+}
+
+function contentHTML(monthId, monthLabel) {
+  const c = CONTENT[monthId];
+  if (!c) return '';
+  const kindLabel = { post:'Post', reel:'Reel', video:'Video' };
+  // Top lists are ranked within each platform; the lowest list is ranked overall.
+  const item = (it, i, list, perPlatform) => {
+    const p = PLATFORMS.find(x => x.id === it.platform);
+    const rank = perPlatform ? list.slice(0, i).filter(x => x.platform === it.platform).length : i;
+    return `<a class="content-item" href="${it.url}" target="_blank" rel="noopener">
+      <div class="content-rank">${rank+1}</div>
+      <div class="content-body">
+        <div class="content-type"><span class="platform-dot" style="background:${p.color};width:8px;height:8px;"></span>${p.name} ${kindLabel[it.kind]}</div>
+        ${it.stats ? `<div class="content-stats">${it.stats}</div>` : ''}
+      </div>
+      <div class="content-arrow">&#x2197;</div>
+    </a>`;
+  };
+  const group = (title, color, list, perPlatform = true) => list && list.length ? `
+    <div class="content-group"><div class="content-group-title" style="color:${color};">${title}</div>${list.map((it, i) => item(it, i, list, perPlatform)).join('')}</div>` : '';
+  return `
+    <div class="section-label">Top Performing Content &mdash; ${monthLabel}</div>
+    <div class="content-grid">
+      ${group('&#9733; Top Posts', 'var(--green)', c.topPosts)}
+      ${group('&#9654; Top Videos', 'var(--blue)', c.topVideos)}
+      ${group('&#9660; Lowest Performing', 'var(--red)', c.lowest, false)}
+    </div>`;
 }
 
 // === RENDER ===
@@ -613,6 +721,8 @@ function render() {
         }).join('')}
       </div>
 
+      ${contentHTML(currentMonth, monthLabel)}
+
       <div class="section-label">Visual Breakdown &mdash; ${monthLabel}</div>
       <div class="charts-grid">
         <div class="chart-card">
@@ -721,6 +831,7 @@ function render() {
           ${ins.audienceInsight ? `<div class="insight-card"><div class="insight-label" style="color:var(--blue);">Audience Insight</div><div class="insight-text">${ins.audienceInsight}</div></div>` : ''}
         </div>
       ` : `<div class="pending-state" style="padding:40px;"><div class="pending-state-icon">&#x1F4A1;</div><div class="pending-state-text">Detailed content insights will be added as patterns emerge.</div></div>`}
+      ${contentHTML(currentMonth, monthLabel)}
       <div class="section-label">Platform Snapshot &mdash; ${monthLabel}</div>
       <div class="platform-grid">
         ${PLATFORMS.filter(p => md[p.id].viewsNum > 0).map(p => {
