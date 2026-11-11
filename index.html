@@ -300,7 +300,8 @@ const MONTHS = [
   { id:'jun26', label:'June 2026' },
   { id:'jul26', label:'July 2026' },
   { id:'aug26', label:'August 2026' },
-  { id:'sep26', label:'September 2026' }
+  { id:'sep26', label:'September 2026' },
+  { id:'oct26', label:'October 2026' }
 ];
 
 const DATA = {
@@ -483,6 +484,36 @@ const DATA = {
       conversions:'—', cpc:'—', roas:'—',
       campaigns: []
     }
+  },
+  oct26: {
+    instagram: {
+      followers:452, views:'4,855', viewsNum:4855, posts:8,
+      engagement:74, engagementRate:'3.4%', engNum:3.4, growth:18
+    },
+    tiktok: {
+      followers:1210, views:'4,005', viewsNum:4005, posts:4,
+      engagement:144, engagementRate:'3.6%', engNum:3.6, growth:-6
+    },
+    facebook: {
+      followers:0, views:'—', viewsNum:0, posts:0,
+      engagement:0, engagementRate:'—', engNum:0, growth:0
+    },
+    aggregate: {
+      totalEngagement:218, avgEngagementRate:'3.50%', avgEngNum:3.50,
+      totalViews:8860, totalFollowers:1662, growth:12, totalPosts:12
+    },
+    insights: {
+      worked:'TikTok picked back up: views rose from 3.1K to 4.0K and engagement from 111 to 144 on the same 4 posts. One video carried it with 2,452 views and 107 engagements. On Instagram, the top Reel pulled 1,871 views and reached 1,464 accounts.',
+      didntWork:'Instagram slowed down. Posts dropped from 14 to 8, views from 10.1K to 4.9K and engagements from 213 to 74. Static posts reached only 43–55 accounts each, and apart from the top Reel, Reels stayed under 450 views.',
+      improvements:'Get Instagram back to September\'s cadence (14 posts), weighted toward Reels. Break down the 2,452-view TikTok and reuse its hook and format on both platforms.',
+      audienceInsight:'Instagram added 18 followers (452), its best month since June. TikTok dipped by 6 to 1,210, for 1,662 total.'
+    },
+    audience: { gender:'TBD', location:'Tampa Bay, FL', age:'TBD', profession:'TBD' },
+    ads: {
+      spend:'—', impressions:'—', clicks:'—', ctr:'—',
+      conversions:'—', cpc:'—', roas:'—',
+      campaigns: []
+    }
   }
 };
 
@@ -552,10 +583,25 @@ const CONTENT = {
       { platform:'tiktok',    kind:'video', url:TT+'7686240001566182669', stats:'1,148 views · 27 engagements · 27 likes' },
       { platform:'tiktok',    kind:'video', url:TT+'7688494027959700749', stats:'395 views · 18 engagements · 17 likes' }
     ]
+  },
+  oct26: {
+    topPosts: [
+      { platform:'instagram', kind:'post', url:IG+'p/DfF4LlIGl3Q/', stats:'Reach 55 · 5 engagements · 5 likes' },
+      { platform:'instagram', kind:'post', url:IG+'p/De-ELXCFA6G/', stats:'Reach 55 · 2 engagements · 2 likes' },
+      { platform:'instagram', kind:'post', url:IG+'p/DexL3WplErx/', stats:'Reach 43 · 2 engagements · 2 likes' }
+    ],
+    topVideos: [
+      { platform:'instagram', kind:'reel',  url:IG+'reels/DeP3Icxki86/', stats:'1,871 views · reach 1,464 · 8 engagements' },
+      { platform:'instagram', kind:'reel',  url:IG+'reels/DfAyPmriIJ0/', stats:'438 views · reach 299 · 1 engagement' },
+      { platform:'instagram', kind:'reel',  url:IG+'reels/DeaGbFYiK82/', stats:'373 views · reach 278 · 6 engagements' },
+      { platform:'tiktok',    kind:'video', url:TT+'7695881965395889421', stats:'2,452 views · 107 engagements · 78 likes' },
+      { platform:'tiktok',    kind:'video', url:TT+'7701457025561021709', stats:'666 views · 12 engagements · 12 likes' },
+      { platform:'tiktok',    kind:'video', url:TT+'7698495559878970637', stats:'561 views · 19 engagements · 17 likes' }
+    ]
   }
 };
 
-let currentMonth = 'sep26';
+let currentMonth = 'oct26';
 let currentTab = 'overview';
 
 // === DATE ===
