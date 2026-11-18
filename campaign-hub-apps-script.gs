@@ -3,12 +3,14 @@
 // The portal's Campaign Hub reads and writes through this script.
 //
 // Setup:
-//   1. Change TEAM_CODE below to a passcode only Brooke & Abby know.
+//   1. Set PORTAL_CODE (what Marissa uses to log in) and TEAM_CODE (Brooke & Abby;
+//      also logs into the portal, with editing turned on).
 //   2. Deploy → New deployment → Web app. Execute as: Me. Who has access: Anyone.
 //   3. Copy the web app URL into HUB_API in index.html.
 // After editing this script later, use Deploy → Manage deployments → Edit → New version
 // so the same URL keeps working.
 
+const PORTAL_CODE = 'pick-a-client-passcode';
 const TEAM_CODE = 'pick-a-passcode';
 
 const TABS = {
@@ -91,9 +93,19 @@ function isDay_(d) {
   return /^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])$/.test(d);
 }
 
+// 'team', 'client', or throws
+function role_(code) {
+  if (TEAM_CODE === 'pick-a-passcode' || PORTAL_CODE === 'pick-a-client-passcode') {
+    throw new Error('Set PORTAL_CODE and TEAM_CODE in the Apps Script first.');
+  }
+  const c = clean_(code);
+  if (c && c === TEAM_CODE) return 'team';
+  if (c && c === PORTAL_CODE) return 'client';
+  throw new Error('Wrong passcode.');
+}
+
 function checkTeam_(code) {
-  if (TEAM_CODE === 'pick-a-passcode') throw new Error('Set TEAM_CODE in the Apps Script first.');
-  if (clean_(code) !== TEAM_CODE) throw new Error('Wrong team passcode.');
+  if (role_(code) !== 'team') throw new Error('That needs the team passcode.');
 }
 
 function deleteById_(name, id) {
@@ -105,8 +117,9 @@ function deleteById_(name, id) {
   if (i >= 0) sh.deleteRow(i + 2);
 }
 
+// Everything goes through POST so passcodes never sit in a URL
 function doGet() {
-  return json_({ ok: true, wishes: rows_('Wishes'), ideas: rows_('Ideas'), campaigns: rows_('Campaigns') });
+  return json_({ ok: false, error: 'Not available.' });
 }
 
 function doPost(e) {
@@ -116,12 +129,21 @@ function doPost(e) {
     const body = JSON.parse(e.postData.contents);
     const now = new Date();
 
-    if (body.action === 'addWish') {
+    if (body.action === 'login') {
+      return json_({ ok: true, role: role_(body.code) });
+
+    } else if (body.action === 'list') {
+      role_(body.code);
+      return json_({ ok: true, wishes: rows_('Wishes'), ideas: rows_('Ideas'), campaigns: rows_('Campaigns') });
+
+    } else if (body.action === 'addWish') {
+      role_(body.code);
       const month = clean_(body.month), text = clean_(body.text);
       if (!isMonth_(month) || !text) throw new Error('Pick a month and write what you want.');
       put_('Wishes', { id: Utilities.getUuid(), month, text, by: clean_(body.by) || 'Marissa', added: now });
 
     } else if (body.action === 'addIdea') {
+      role_(body.code);
       const text = clean_(body.text), month = clean_(body.month);
       if (!text) throw new Error('Write the idea first.');
       if (month && !isMonth_(month)) throw new Error('Pick a month or the Idea Bank.');
@@ -152,9 +174,6 @@ function doPost(e) {
     } else if (body.action === 'deleteIdea') {
       checkTeam_(body.code);
       deleteById_('Ideas', clean_(body.id));
-
-    } else if (body.action === 'checkCode') {
-      checkTeam_(body.code);
 
     } else {
       throw new Error('Unknown action.');
