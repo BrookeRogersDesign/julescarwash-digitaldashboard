@@ -167,12 +167,115 @@
   .content-arrow{font-size:14px;color:var(--text-dim);flex-shrink:0;}
   .best{color:var(--green) !important;}
 
+  /* ===== CAMPAIGN HUB ===== */
+  .hub-intro{font-size:13px;color:var(--text-mid);line-height:1.7;max-width:760px;margin-bottom:28px;}
+  .month-block{background:var(--card);border:1px solid var(--card-border);border-radius:var(--radius);padding:26px;margin-bottom:20px;backdrop-filter:blur(10px);}
+  .month-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:20px;padding-bottom:16px;border-bottom:1px solid var(--card-border);flex-wrap:wrap;}
+  .month-name{font-size:18px;font-weight:700;letter-spacing:0.5px;}
+  .month-campaign-name{font-size:13px;color:var(--text-mid);margin-top:2px;}
+  .status-pill{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:6px 14px;border-radius:50px;border:1px solid;}
+  .status-pill.wishlist{color:var(--orange);background:rgba(255,209,128,0.08);border-color:rgba(255,209,128,0.3);}
+  .status-pill.planning{color:var(--blue);background:rgba(130,177,255,0.08);border-color:rgba(130,177,255,0.3);}
+  .status-pill.ready{color:var(--accent);background:var(--accent-dim);border-color:var(--accent-glow);}
+  .status-pill.live{color:var(--green);background:rgba(74,222,128,0.08);border-color:rgba(74,222,128,0.3);}
+  .status-pill.done{color:var(--text-dim);background:rgba(255,255,255,0.04);border-color:var(--card-border);}
+  .month-cols{display:grid;grid-template-columns:1fr 2fr;gap:14px;align-items:start;}
+  .hub-panel{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.04);border-radius:var(--radius-sm);padding:20px;}
+  .hub-panel-title{font-size:10px;text-transform:uppercase;letter-spacing:1px;margin-bottom:12px;font-weight:700;}
+  .hub-list{list-style:none;}
+  .hub-list li{font-size:13px;color:var(--text-mid);line-height:1.6;padding:6px 0 6px 16px;position:relative;}
+  .hub-list li::before{content:'';position:absolute;left:0;top:14px;width:6px;height:6px;border-radius:50%;background:var(--accent);}
+  .hub-empty{font-size:13px;color:var(--text-dim);font-style:italic;}
+  .plan-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px 24px;}
+  .plan-item.full{grid-column:1/-1;}
+  .plan-label{font-size:9px;color:var(--text-dim);text-transform:uppercase;letter-spacing:1px;margin-bottom:3px;}
+  .plan-value{font-size:13px;color:var(--text);line-height:1.6;}
+  .idea-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:32px;}
+  .idea-card{background:var(--card);border:1px solid var(--card-border);border-radius:var(--radius-sm);padding:18px;font-size:13px;color:var(--text-mid);line-height:1.6;}
+  .idea-card{position:relative;}
+  .camp-card{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);border-radius:var(--radius-sm);padding:18px;margin-bottom:12px;}
+  .camp-card:last-child{margin-bottom:0;}
+  .camp-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:14px;flex-wrap:wrap;}
+  .camp-name{font-size:15px;font-weight:700;}
+  .camp-head-right{display:flex;align-items:center;gap:8px;}
+  .month-count{font-size:12px;color:var(--text-dim);}
+  .hub-link{background:none;border:none;color:var(--orange);font-family:var(--font);font-size:12px;font-weight:600;cursor:pointer;padding:0;margin-top:12px;}
+  .hub-link:hover{text-decoration:underline;}
+  .chip-row{display:flex;flex-wrap:wrap;gap:6px;}
+  .chip{font-size:11px;font-weight:600;padding:4px 10px;border-radius:50px;background:var(--accent-dim);color:var(--blue);border:1px solid var(--accent-glow);}
+  .chip-picks{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px;}
+  .chip-pick input{display:none;}
+  .chip-pick span{display:inline-block;font-size:12px;font-weight:600;text-transform:none;letter-spacing:0;padding:6px 12px;border-radius:50px;border:1px solid var(--card-border);color:var(--text-mid);cursor:pointer;}
+  .chip-pick input:checked + span{background:var(--accent);border-color:var(--accent);color:#fff;}
+  .camp-run{font-size:12px;color:var(--text-mid);margin-top:2px;}
+  .hub-field-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  .hub-field input[type=date]{color-scheme:dark;}
+  .view-toggle{display:inline-flex;border:1px solid var(--card-border);border-radius:50px;padding:3px;margin-right:6px;}
+  .view-toggle button{font-family:var(--font);font-size:11px;font-weight:700;letter-spacing:0.8px;text-transform:uppercase;color:var(--text-dim);background:none;border:none;border-radius:50px;padding:7px 16px;cursor:pointer;}
+  .view-toggle button.active{background:var(--accent);color:#fff;}
+  .cal-card{background:var(--card);border:1px solid var(--card-border);border-radius:var(--radius);padding:22px;backdrop-filter:blur(10px);}
+  .cal-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;}
+  .cal-title{font-size:18px;font-weight:700;}
+  .cal-dow{display:grid;grid-template-columns:repeat(7,1fr);font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--text-dim);margin-bottom:6px;}
+  .cal-dow div{padding:0 8px;}
+  .cal-week{position:relative;min-height:96px;}
+  .cal-bg{position:absolute;inset:0;display:grid;grid-template-columns:repeat(7,1fr);}
+  .cal-cell{border-top:1px solid var(--card-border);border-left:1px solid rgba(255,255,255,0.03);}
+  .cal-cell:first-child{border-left:none;}
+  .cal-cell.other{background:rgba(0,0,0,0.15);}
+  .cal-cell.today{background:rgba(47,110,187,0.10);}
+  .cal-fg{position:relative;display:grid;grid-template-columns:repeat(7,1fr);grid-auto-rows:min-content;row-gap:4px;padding-bottom:8px;}
+  .cal-num{grid-row:1;font-size:12px;font-weight:600;color:var(--text-mid);padding:6px 8px 2px;}
+  .cal-num.other{color:var(--text-dim);opacity:0.5;}
+  .cal-num.today{color:var(--blue);font-weight:800;}
+  .cal-bar{margin:0 3px;padding:4px 8px;font-family:var(--font);font-size:11px;font-weight:700;text-align:left;color:#fff;border:none;border-radius:6px;cursor:pointer;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;background:var(--accent);}
+  .cal-bar:hover{filter:brightness(1.15);}
+  .cal-bar.cont-left{border-top-left-radius:0;border-bottom-left-radius:0;margin-left:0;}
+  .cal-bar.cont-right{border-top-right-radius:0;border-bottom-right-radius:0;margin-right:0;}
+  .cal-bar.wishlist,.cal-dot.wishlist{background:#9A7B3C;}
+  .cal-bar.planning,.cal-dot.planning{background:#4A6FA8;}
+  .cal-bar.ready,.cal-dot.ready{background:var(--accent);}
+  .cal-bar.live,.cal-dot.live{background:#2E9E5B;}
+  .cal-bar.done,.cal-dot.done{background:#4B5563;}
+  .cal-legend{display:flex;flex-wrap:wrap;gap:14px;margin-top:14px;font-size:11px;color:var(--text-dim);}
+  .cal-legend-item{display:inline-flex;align-items:center;gap:6px;}
+  .cal-dot{width:10px;height:10px;border-radius:3px;display:inline-block;}
+  .cal-undated{color:var(--blue);}
+  @media(max-width:600px){.cal-card{padding:12px;}.cal-week{min-height:72px;}.cal-num{padding:4px 4px 2px;font-size:11px;}.cal-dow div{padding:0 4px;}.cal-bar{font-size:9px;padding:3px 4px;margin:0 1px;}}
+  .hub-by{color:var(--text-dim);font-size:12px;}
+  .hub-actions{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:28px;}
+  .hub-team{margin-left:auto;font-size:12px;color:var(--text-dim);}
+  .hub-team a{color:var(--blue);text-decoration:none;font-weight:600;}
+  .hub-btn{padding:10px 20px;font-size:12px;font-weight:700;letter-spacing:0.8px;text-transform:uppercase;font-family:var(--font);color:#fff;background:var(--accent);border:1px solid var(--accent);border-radius:50px;cursor:pointer;transition:all 0.25s;}
+  .hub-btn:hover{filter:brightness(1.12);}
+  .hub-btn:disabled{opacity:0.6;cursor:default;}
+  .hub-btn.ghost{background:transparent;color:var(--text-mid);border-color:var(--card-border);}
+  .hub-btn.ghost:hover{background:rgba(255,255,255,0.04);border-color:rgba(47,110,187,0.25);}
+  .hub-btn.small{padding:6px 14px;font-size:10px;}
+  .hub-panel-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:12px;}
+  .hub-panel-head .hub-panel-title{margin-bottom:0;}
+  .icon-btn{background:none;border:none;color:var(--text-dim);font-size:16px;line-height:1;cursor:pointer;padding:0 4px;margin-left:6px;vertical-align:middle;}
+  .icon-btn:hover{color:var(--red);}
+  .idea-card .icon-btn{position:absolute;top:10px;right:10px;}
+  .hub-modal{display:none;position:fixed;inset:0;z-index:200;background:rgba(5,8,12,0.7);backdrop-filter:blur(6px);align-items:flex-start;justify-content:center;padding:60px 16px;overflow-y:auto;}
+  .hub-modal.open{display:flex;}
+  .hub-modal-card{width:100%;max-width:520px;background:var(--card-solid);border:1px solid var(--card-border);border-radius:var(--radius);padding:28px;}
+  .hub-modal-title{font-size:18px;font-weight:700;margin-bottom:20px;}
+  .hub-field{display:block;font-size:11px;color:var(--text-dim);text-transform:uppercase;letter-spacing:0.8px;font-weight:600;margin-bottom:14px;}
+  .hub-field input,.hub-field textarea,.hub-field select{display:block;width:100%;margin-top:6px;padding:10px 12px;font-family:var(--font);font-size:14px;color:var(--text);background:rgba(255,255,255,0.05);border:1px solid var(--card-border);border-radius:10px;text-transform:none;letter-spacing:0;font-weight:400;resize:vertical;}
+  .hub-field select option{background:var(--card-solid);}
+  .hub-field input:focus,.hub-field textarea:focus,.hub-field select:focus{outline:none;border-color:var(--accent);}
+  .hub-form-error{color:var(--red);font-size:13px;min-height:18px;margin-bottom:8px;}
+  .hub-modal-actions{display:flex;justify-content:flex-end;gap:10px;}
+  .idea-by{font-size:10px;color:var(--text-dim);text-transform:uppercase;letter-spacing:1px;margin-top:10px;font-weight:600;}
+
   /* TRANSITIONS */
   .view{opacity:0;transition:opacity 0.35s ease;}
   .view.active{opacity:1;}
 
   @media(max-width:1200px){.metrics-row,.metrics-row-6,.platform-grid,.ad-metrics,.content-grid{grid-template-columns:repeat(2,1fr);}.charts-grid{grid-template-columns:1fr;}}
-  @media(max-width:768px){.metrics-row,.metrics-row-6,.platform-grid,.ad-metrics,.content-grid{grid-template-columns:1fr;}.main{padding:20px;}.header{padding:16px 20px;}.nav-tabs{padding:12px 20px;overflow-x:auto;}.insights-grid{grid-template-columns:1fr;}}
+  @media(max-width:900px){.month-cols,.idea-grid{grid-template-columns:1fr;}}
+  @media(max-width:768px){.metrics-row,.metrics-row-6,.platform-grid,.ad-metrics,.content-grid,.plan-grid{grid-template-columns:1fr;}.main{padding:20px;}.header{padding:16px 20px;}.nav-tabs{padding:12px 20px;overflow-x:auto;}.insights-grid{grid-template-columns:1fr;}}
   @media(max-width:600px){.portal-grid{grid-template-columns:1fr;}.portal-container{padding:40px 20px;}.footer{flex-direction:column;text-align:center;gap:6px;padding:18px 20px;}}
   @media(max-width:500px){.header-right{display:none;}}
 </style>
@@ -194,16 +297,15 @@
         <div class="portal-title">Digital Dashboard</div>
         <div class="portal-desc">Social media analytics, engagement metrics, and cross-platform performance data.</div>
       </div>
+      <div class="portal-card primary" onclick="showCampaigns()">
+        <div class="portal-icon">&#x1F3AF;</div>
+        <div class="portal-title">Campaign Hub</div>
+        <div class="portal-desc">Upcoming campaigns by month: your wish list and the full plan for each one.</div>
+      </div>
       <div class="portal-card coming">
         <div class="portal-icon">&#x1F4C4;</div>
         <div class="portal-title">Reports</div>
         <div class="portal-desc">Monthly performance reports and strategic recommendations.</div>
-        <div class="coming-tag">Coming Soon</div>
-      </div>
-      <div class="portal-card coming">
-        <div class="portal-icon">&#x1F3AF;</div>
-        <div class="portal-title">Campaign Hub</div>
-        <div class="portal-desc">Paid advertising campaigns, budgets, and ROI tracking.</div>
         <div class="coming-tag">Coming Soon</div>
       </div>
       <div class="portal-card coming">
@@ -256,32 +358,64 @@
   </div>
 </div>
 
+<!-- ===== CAMPAIGN HUB VIEW ===== -->
+<div class="view" id="campaignsView">
+  <div class="header">
+    <div class="logo-area" onclick="showPortal()">
+      <div class="logo-icon">
+        <img src="Jules_Logo-20191.png" alt="Jules Carwash">
+      </div>
+      <div class="logo-divider"></div>
+      <div class="logo-text">
+        <span>Jules Carwash</span>
+        <span>Campaign Hub</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="nav-tabs">
+    <button class="nav-tab" onclick="showPortal()" style="margin-left:auto;border-color:rgba(237,28,36,0.25);color:var(--text-mid);">&#x2190; Portal</button>
+  </div>
+
+  <div class="main" id="campaignsContent" style="width:100%;"></div>
+  <div class="hub-modal" id="hubModal" onclick="if(event.target===this)closeModal()"></div>
+
+  <div class="footer">
+    <div class="footer-left">Jules Carwash &copy; 2026</div>
+    <div class="footer-brand">Powered by <a href="https://brookerogersdesign.com" target="_blank">Howell'n & Partners</a></div>
+  </div>
+</div>
+
 <script>
 // === VIEW SWITCHING ===
-function showDashboard() {
-  document.getElementById('portalView').classList.remove('active');
+const VIEWS = ['portalView','dashboardView','campaignsView'];
+function openView(id, onShown) {
+  const current = VIEWS.map(v=>document.getElementById(v)).find(el=>el.classList.contains('active'));
+  if (current) current.classList.remove('active');
   setTimeout(() => {
-    document.getElementById('portalView').style.display = 'none';
-    document.getElementById('dashboardView').style.display = 'flex';
-    document.getElementById('dashboardView').style.flexDirection = 'column';
-    document.getElementById('dashboardView').style.minHeight = '100vh';
-    setTimeout(() => document.getElementById('dashboardView').classList.add('active'), 20);
+    VIEWS.forEach(v => { if (v !== id) document.getElementById(v).style.display = 'none'; });
+    const el = document.getElementById(id);
+    el.style.display = 'flex';
+    el.style.flexDirection = 'column';
+    el.style.minHeight = '100vh';
+    setTimeout(() => el.classList.add('active'), 20);
     window.scrollTo(0, 0);
-    if (!chartsInitialized) { render(); chartsInitialized = true; }
-  }, 350);
+    if (onShown) onShown();
+  }, current ? 350 : 0);
+}
+
+function showDashboard() {
+  openView('dashboardView', () => { if (!chartsInitialized) { render(); chartsInitialized = true; } });
   saveState('dashboard');
 }
 
+function showCampaigns() {
+  openView('campaignsView', renderCampaigns);
+  saveState('campaigns');
+}
+
 function showPortal() {
-  document.getElementById('dashboardView').classList.remove('active');
-  setTimeout(() => {
-    document.getElementById('dashboardView').style.display = 'none';
-    document.getElementById('portalView').style.display = 'flex';
-    document.getElementById('portalView').style.flexDirection = 'column';
-    document.getElementById('portalView').style.minHeight = '100vh';
-    setTimeout(() => document.getElementById('portalView').classList.add('active'), 20);
-    window.scrollTo(0, 0);
-  }, 350);
+  openView('portalView');
   saveState('portal');
 }
 
@@ -600,6 +734,340 @@ const CONTENT = {
     ]
   }
 };
+
+// === CAMPAIGN HUB ===
+// Marissa adds wishes for upcoming months; anyone can drop ideas in the Idea Bank;
+// Brooke & Abby build as many campaigns per month as they need (team passcode).
+// Everything is saved in the "Jules Campaign Hub" Google Sheet through the
+// Apps Script in campaign-hub-apps-script.gs. Paste its web app URL here:
+const HUB_API = '';
+
+const STATUS_LABELS = { wishlist:'Idea', planning:'Planning', ready:'Ready to launch', live:'Live', done:'Done' };
+const PLAN_FIELDS = [
+  ['name','Campaign name'], ['offer','Offer'], ['goal','Goal'], ['leadTarget','Lead target'],
+  ['audience','Who it\'s for'], ['dates','Other key dates']
+];
+const CHANNELS = ['Instagram','TikTok','Facebook','Email','Text / SMS','In-store','Paid ads','Website'];
+const TEAM_KEY = 'julesHubTeamCode';
+const MONTHS_AHEAD = 6;
+
+let hub = { wishes:[], ideas:[], campaigns:[], loading:false, loaded:false, error:'',
+            view:'list', calMonth:'' };
+
+function esc(t) {
+  return String(t).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+function getTeamCode() { try { return localStorage.getItem(TEAM_KEY) || ''; } catch(e) { return ''; } }
+function setTeamCode(code) { try { code ? localStorage.setItem(TEAM_KEY, code) : localStorage.removeItem(TEAM_KEY); } catch(e) {} }
+
+function monthKey(d) { return d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0'); }
+function monthLabel(key) {
+  const [y,m] = key.split('-').map(Number);
+  return new Date(y, m-1, 1).toLocaleDateString('en-US', { month:'long', year:'numeric' });
+}
+function parseDay(d) { const [y,m,day] = d.split('-').map(Number); return new Date(y, m-1, day); }
+function dayKey(d) { return monthKey(d) + '-' + String(d.getDate()).padStart(2,'0'); }
+function fmtDay(d) { return parseDay(d).toLocaleDateString('en-US', { month:'short', day:'numeric' }); }
+function runLabel(c) {
+  if (!c.start) return '';
+  return c.end && c.end !== c.start ? `${fmtDay(c.start)} – ${fmtDay(c.end)}` : fmtDay(c.start);
+}
+// This month plus the next few, plus any later month that already has something in it
+function hubMonths() {
+  const now = new Date(), keys = new Set();
+  for (let i = 0; i < MONTHS_AHEAD; i++) keys.add(monthKey(new Date(now.getFullYear(), now.getMonth()+i, 1)));
+  const first = monthKey(now);
+  hub.wishes.concat(hub.campaigns, hub.ideas).forEach(r => { if (r.month >= first) keys.add(r.month); });
+  return [...keys].sort();
+}
+
+async function loadHub() {
+  if (!HUB_API) { hub.loaded = true; renderCampaigns(); return; }
+  hub.loading = true; hub.error = '';
+  renderCampaigns();
+  try {
+    const res = await fetch(HUB_API);
+    const data = await res.json();
+    if (!data.ok) throw new Error(data.error || 'Could not load');
+    hub.wishes = data.wishes; hub.ideas = data.ideas; hub.campaigns = data.campaigns;
+    hub.loaded = true;
+  } catch (e) {
+    hub.error = 'Couldn\'t load the Campaign Hub. Refresh the page to try again.';
+  }
+  hub.loading = false;
+  renderCampaigns();
+}
+
+async function hubPost(payload) {
+  const res = await fetch(HUB_API, { method:'POST', body:JSON.stringify(payload) });
+  const data = await res.json();
+  if (!data.ok) throw new Error(data.error || 'Something went wrong. Try again.');
+}
+
+function renderPlan(plan) {
+  const field = (label, val, full) => val ? `<div class="plan-item${full?' full':''}"><div class="plan-label">${label}</div><div class="plan-value">${esc(val)}</div></div>` : '';
+  const items = (plan.content || '').split('\n').map(t=>t.trim()).filter(Boolean);
+  const content = items.length
+    ? `<div class="plan-item full"><div class="plan-label">Drip / content plan</div><ul class="hub-list">${items.map(c=>`<li>${esc(c)}</li>`).join('')}</ul></div>` : '';
+  return `<div class="plan-grid">
+    ${field('Offer', plan.offer, true)}
+    ${field('Goal', plan.goal)}
+    ${field('Lead target', plan.leadTarget)}
+    ${field('Who it\'s for', plan.audience)}
+    ${plan.channels ? `<div class="plan-item full"><div class="plan-label">Channels</div><div class="chip-row">${plan.channels.split(',').map(c=>c.trim()).filter(Boolean).map(c=>`<span class="chip">${esc(c)}</span>`).join('')}</div></div>` : ''}
+    ${field('Key dates', plan.dates)}
+    ${content}
+    ${field('Notes', plan.notes, true)}
+  </div>`;
+}
+
+function renderCampaigns() {
+  const el = document.getElementById('campaignsContent');
+  if (!hub.loaded && !hub.loading && !hub.error) { loadHub(); return; }
+  if (hub.error) { el.innerHTML = `<div class="pending-state"><div class="pending-state-text">${esc(hub.error)}</div></div>`; return; }
+  if (!hub.loaded) { el.innerHTML = `<div class="pending-state"><div class="pending-state-text">Loading campaigns…</div></div>`; return; }
+
+  const live = !!HUB_API, team = !!getTeamCode();
+  const del = (kind, id) => live && team ? `<button class="icon-btn" title="Remove" onclick="hubDelete('${kind}','${esc(id)}')">&times;</button>` : '';
+
+  const toggle = `
+      <div class="view-toggle">
+        <button class="${hub.view==='list'?'active':''}" onclick="setHubView('list')">By month</button>
+        <button class="${hub.view==='calendar'?'active':''}" onclick="setHubView('calendar')">Calendar</button>
+      </div>`;
+  const actions = `
+    <div class="hub-actions">
+      ${toggle}
+      ${live ? `
+      <button class="hub-btn" onclick="openWishForm()">+ Tell us what you want</button>
+      <button class="hub-btn ghost" onclick="openIdeaForm()">+ Add an Idea</button>
+      <span class="hub-team">${team
+        ? `Team mode on · <a href="#" onclick="setTeamCode('');renderCampaigns();return false;">Sign out</a>`
+        : `<a href="#" onclick="openTeamLogin();return false;">Team sign-in</a>`}</span>` : ''}
+    </div>`;
+
+  if (hub.view === 'calendar') { el.innerHTML = actions + renderCalendar(); return; }
+
+  const months = hubMonths().map(key => {
+    const notes = hub.wishes.filter(w => w.month === key).map(w => ({...w, kind:'Wish'}))
+      .concat(hub.ideas.filter(i => i.month === key).map(i => ({...i, kind:'Idea'})));
+    const camps = hub.campaigns.filter(c => c.month === key);
+    const campCards = camps.map(c => `
+          <div class="camp-card">
+            <div class="camp-head">
+              <div>
+                <div class="camp-name">${esc(c.name || 'Untitled campaign')}</div>
+                ${c.start ? `<div class="camp-run">&#x1F4C5; Runs ${runLabel(c)}</div>` : ''}
+              </div>
+              <div class="camp-head-right">
+                <span class="status-pill ${esc(c.status)}">${STATUS_LABELS[c.status] || ''}</span>
+                ${live && team ? `<button class="hub-btn small ghost" onclick="openPlanForm('${key}','${esc(c.id)}')">Edit</button>${del('Campaign', c.id)}` : ''}
+              </div>
+            </div>
+            ${renderPlan(c)}
+          </div>`).join('');
+    return `
+    <div class="month-block">
+      <div class="month-head">
+        <div class="month-name">${monthLabel(key)}</div>
+        <div class="month-count">${camps.length ? camps.length + (camps.length === 1 ? ' campaign' : ' campaigns') : ''}</div>
+      </div>
+      <div class="month-cols">
+        <div class="hub-panel">
+          <div class="hub-panel-title" style="color:var(--orange);">&#x2728; Requests &amp; Ideas</div>
+          ${notes.length ? `<ul class="hub-list">${notes.map(n=>`<li>${esc(n.text)}${n.by ? ` <span class="hub-by">— ${esc(n.by)}</span>` : ''}${del(n.kind, n.id)}</li>`).join('')}</ul>` : `<div class="hub-empty">Nothing added yet.</div>`}
+          ${live ? `<button class="hub-link" onclick="openWishForm('${key}')">+ Add a request</button>` : ''}
+        </div>
+        <div class="hub-panel">
+          <div class="hub-panel-head">
+            <div class="hub-panel-title" style="color:var(--blue);">&#x1F3AF; Campaigns</div>
+            ${live && team ? `<button class="hub-btn small" onclick="openPlanForm('${key}')">+ Add campaign</button>` : ''}
+          </div>
+          ${campCards || `<div class="hub-empty">Brooke &amp; Abby are building the campaigns for this month.</div>`}
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+
+  const bank = hub.ideas.filter(i => !i.month);
+  const ideas = bank.length
+    ? `<div class="idea-grid">${bank.map(i=>`<div class="idea-card">${del('Idea', i.id)}${esc(i.text)}${i.by?`<div class="idea-by">${esc(i.by)}</div>`:''}</div>`).join('')}</div>`
+    : `<div class="hub-empty" style="margin-bottom:32px;">No ideas yet.</div>`;
+
+  el.innerHTML = `
+    ${actions}
+    <div class="section-label">Idea Bank · Circle back later</div>
+    ${ideas}
+    <div class="section-label">Upcoming Campaigns</div>
+    ${months}`;
+}
+
+// --- Calendar ---
+function setHubView(v) { hub.view = v; renderCampaigns(); saveState('campaigns'); }
+function shiftCal(n) {
+  const [y,m] = hub.calMonth.split('-').map(Number);
+  hub.calMonth = monthKey(new Date(y, m-1+n, 1));
+  renderCampaigns();
+}
+
+function renderCalendar() {
+  if (!hub.calMonth) hub.calMonth = monthKey(new Date());
+  const [y,m] = hub.calMonth.split('-').map(Number);
+  const first = new Date(y, m-1, 1);
+  const gridStart = new Date(y, m-1, 1 - first.getDay());          // Sunday on or before the 1st
+  const last = new Date(y, m, 0);
+  const weeks = Math.ceil((first.getDay() + last.getDate()) / 7);
+  const today = dayKey(new Date());
+  const dated = hub.campaigns.filter(c => c.start).sort((a,b) => a.start.localeCompare(b.start));
+
+  let html = '';
+  for (let w = 0; w < weeks; w++) {
+    const wkStart = new Date(gridStart.getFullYear(), gridStart.getMonth(), gridStart.getDate() + w*7);
+    const days = [...Array(7)].map((_,i) => new Date(wkStart.getFullYear(), wkStart.getMonth(), wkStart.getDate()+i));
+    const ws = dayKey(days[0]), we = dayKey(days[6]);
+    const bars = dated.filter(c => c.start <= we && (c.end || c.start) >= ws).map(c => {
+      const s = c.start < ws ? 0 : days.findIndex(d => dayKey(d) === c.start);
+      const end = c.end || c.start;
+      const e = end > we ? 6 : days.findIndex(d => dayKey(d) === end);
+      const cont = (c.start < ws ? ' cont-left' : '') + (end > we ? ' cont-right' : '');
+      return `<button class="cal-bar ${esc(c.status)}${cont}" style="grid-column:${s+1} / ${e+2};" title="${esc(c.name)}${c.offer ? ' — ' + esc(c.offer) : ''}" onclick="openCampaignView('${esc(c.id)}')">${esc(c.name || 'Untitled campaign')}</button>`;
+    }).join('');
+    html += `
+      <div class="cal-week">
+        <div class="cal-bg">${days.map(d => `<div class="cal-cell${d.getMonth() !== m-1 ? ' other' : ''}${dayKey(d) === today ? ' today' : ''}"></div>`).join('')}</div>
+        <div class="cal-fg">
+          ${days.map((d,i) => `<div class="cal-num${d.getMonth() !== m-1 ? ' other' : ''}${dayKey(d) === today ? ' today' : ''}" style="grid-column:${i+1};">${d.getDate()}</div>`).join('')}
+          ${bars}
+        </div>
+      </div>`;
+  }
+
+  const undated = hub.campaigns.filter(c => !c.start && c.month === hub.calMonth);
+  const legend = Object.entries(STATUS_LABELS).map(([k,v]) => `<span class="cal-legend-item"><span class="cal-dot ${k}"></span>${v}</span>`).join('');
+  return `
+    <div class="cal-card">
+      <div class="cal-head">
+        <button class="hub-btn small ghost" onclick="shiftCal(-1)">&#x2190;</button>
+        <div class="cal-title">${monthLabel(hub.calMonth)}</div>
+        <button class="hub-btn small ghost" onclick="shiftCal(1)">&#x2192;</button>
+      </div>
+      <div class="cal-dow">${['Sun','Mon','Tue','Wed','Thu','Fri','Sat'].map(d=>`<div>${d}</div>`).join('')}</div>
+      ${html}
+      <div class="cal-legend">${legend}</div>
+    </div>
+    ${undated.length ? `<div class="hub-empty" style="margin-top:14px;">No dates yet: ${undated.map(c => `<a href="#" class="cal-undated" onclick="openCampaignView('${esc(c.id)}');return false;">${esc(c.name || 'Untitled campaign')}</a>`).join(', ')}</div>` : ''}`;
+}
+
+function openCampaignView(id) {
+  const c = hub.campaigns.find(x => x.id === id);
+  if (!c) return;
+  const team = !!HUB_API && !!getTeamCode();
+  const m = document.getElementById('hubModal');
+  m.innerHTML = `
+    <div class="hub-modal-card">
+      <div class="camp-head">
+        <div>
+          <div class="hub-modal-title" style="margin-bottom:2px;">${esc(c.name || 'Untitled campaign')}</div>
+          ${c.start ? `<div class="camp-run">&#x1F4C5; Runs ${runLabel(c)}</div>` : ''}
+        </div>
+        <span class="status-pill ${esc(c.status)}">${STATUS_LABELS[c.status] || ''}</span>
+      </div>
+      ${renderPlan(c)}
+      <div class="hub-modal-actions" style="margin-top:20px;">
+        ${team ? `<button class="hub-btn ghost" onclick="openPlanForm('${c.month}','${esc(c.id)}')">Edit</button>` : ''}
+        <button class="hub-btn" onclick="closeModal()">Close</button>
+      </div>
+    </div>`;
+  m.classList.add('open');
+}
+
+// --- Forms ---
+function openModal(title, body, submitLabel, onSubmit) {
+  const m = document.getElementById('hubModal');
+  m.innerHTML = `
+    <form class="hub-modal-card" id="hubForm">
+      <div class="hub-modal-title">${title}</div>
+      ${body}
+      <div class="hub-form-error" id="hubFormError"></div>
+      <div class="hub-modal-actions">
+        <button type="button" class="hub-btn ghost" onclick="closeModal()">Cancel</button>
+        <button type="submit" class="hub-btn" id="hubSubmit">${submitLabel}</button>
+      </div>
+    </form>`;
+  m.classList.add('open');
+  const form = document.getElementById('hubForm');
+  form.querySelector('textarea, input:not([type=hidden]), select')?.focus();
+  form.onsubmit = async ev => {
+    ev.preventDefault();
+    const btn = document.getElementById('hubSubmit'), err = document.getElementById('hubFormError');
+    btn.disabled = true; btn.textContent = 'Saving…'; err.textContent = '';
+    try {
+      await onSubmit(Object.fromEntries(new FormData(form)));
+      closeModal();
+      await loadHub();
+    } catch (e) {
+      err.textContent = e.message;
+      btn.disabled = false; btn.textContent = submitLabel;
+    }
+  };
+}
+function closeModal() { document.getElementById('hubModal').classList.remove('open'); }
+
+function monthOptions(selected) {
+  return hubMonths().map(k => `<option value="${k}"${k===selected?' selected':''}>${monthLabel(k)}</option>`).join('');
+}
+
+function openWishForm(month) {
+  const next = month || hubMonths()[1];
+  openModal('What do you want to do?', `
+    <label class="hub-field">Which month?<select name="month">${monthOptions(next)}</select></label>
+    <label class="hub-field">What do you want to do that month?<textarea name="text" rows="4" required placeholder="A promo, a thank-you for members, an event, something to push…"></textarea></label>
+    <label class="hub-field">Your name<input name="by" value="Marissa"></label>`,
+    'Add', f => hubPost({ action:'addWish', ...f }));
+}
+
+function openIdeaForm() {
+  openModal('Add an Idea', `
+    <label class="hub-field">The idea<textarea name="text" rows="4" required></textarea></label>
+    <label class="hub-field">Where does it go?<select name="month"><option value="">Idea Bank — circle back later</option>${monthOptions('')}</select></label>
+    <label class="hub-field">Your name<input name="by"></label>`,
+    'Add', f => hubPost({ action:'addIdea', ...f }));
+}
+
+function openTeamLogin() {
+  openModal('Team sign-in', `
+    <label class="hub-field">Team passcode<input name="code" type="password" required autocomplete="current-password"></label>`,
+    'Sign in', async f => { await hubPost({ action:'checkCode', code:f.code }); setTeamCode(f.code); });
+}
+
+function openPlanForm(key, id) {
+  const p = (id && hub.campaigns.find(c => c.id === id)) || {};
+  const status = p.status || 'planning';
+  openModal(id ? 'Edit campaign' : `New ${monthLabel(key)} campaign`, `
+    <div class="hub-field-row">
+      <label class="hub-field">Starts<input type="date" name="start" value="${esc(p.start||'')}"></label>
+      <label class="hub-field">Ends<input type="date" name="end" value="${esc(p.end||'')}"></label>
+    </div>
+    <label class="hub-field">Month (if there are no dates yet)<select name="month">${monthOptions(key)}</select></label>
+    <label class="hub-field">Status<select name="status">${Object.entries(STATUS_LABELS).map(([k,v])=>`<option value="${k}"${k===status?' selected':''}>${v}</option>`).join('')}</select></label>
+    ${PLAN_FIELDS.map(([k,label]) => `<label class="hub-field">${label}<input name="${k}" value="${esc(p[k]||'')}"></label>`).join('')}
+    <div class="hub-field">Channels<div class="chip-picks">${CHANNELS.map(c => `<label class="chip-pick"><input type="checkbox" name="ch" value="${c}"${(p.channels||'').split(',').map(x=>x.trim()).includes(c)?' checked':''}><span>${c}</span></label>`).join('')}</div></div>
+    <label class="hub-field">Drip / content plan (one per line)<textarea name="content" rows="4">${esc(p.content||'')}</textarea></label>
+    <label class="hub-field">Notes<textarea name="notes" rows="3">${esc(p.notes||'')}</textarea></label>`,
+    'Save campaign', f => {
+      if (f.start && f.end && f.end < f.start) throw new Error('The end date is before the start date.');
+      const channels = [...document.querySelectorAll('#hubForm input[name=ch]:checked')].map(i => i.value).join(', ');
+      delete f.ch;
+      return hubPost({ action:'saveCampaign', id:id||'', code:getTeamCode(), ...f, channels });
+    });
+}
+
+async function hubDelete(kind, id) {
+  if (!confirm('Remove this?')) return;
+  try { await hubPost({ action:'delete'+kind, id, code:getTeamCode() }); }
+  catch (e) { alert(e.message); }
+  await loadHub();
+}
 
 let currentMonth = 'oct26';
 let currentTab = 'overview';
@@ -1022,11 +1490,22 @@ function setMonth(month) {
 // The current view, tab and month live in the URL hash (e.g. #dashboard/social/aug26)
 // so a refresh — or a shared link — reopens the same page.
 function saveState(view) {
-  const hash = view === 'dashboard' ? `#dashboard/${currentTab}/${currentMonth}` : '';
+  const hash = view === 'dashboard' ? `#dashboard/${currentTab}/${currentMonth}`
+    : view === 'campaigns' ? (hub.view === 'calendar' ? '#campaigns/calendar' : '#campaigns') : '';
   history.replaceState(null, '', location.pathname + location.search + hash);
 }
 function restoreState() {
   const [view, tab, month] = location.hash.replace('#','').split('/');
+  if (view === 'campaigns') {
+    if (tab === 'calendar') hub.view = 'calendar';
+    document.getElementById('portalView').classList.remove('active');
+    document.getElementById('portalView').style.display = 'none';
+    const hubView = document.getElementById('campaignsView');
+    hubView.style.display = 'flex'; hubView.style.flexDirection = 'column'; hubView.style.minHeight = '100vh';
+    hubView.classList.add('active');
+    renderCampaigns();
+    return;
+  }
   if (view !== 'dashboard') return;
   if (DATA[month]) currentMonth = month;
   const tabBtn = [...document.querySelectorAll('.nav-tabs .nav-tab')].find(b => (b.getAttribute('onclick')||'').includes(`'${tab}'`));
